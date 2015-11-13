@@ -95,12 +95,13 @@
 	if($request ==  "getAllAccount"){
 		$dataResponse = getUserList($json["raw"]);
 	}
+	else if($request ==  "save"){
+		$dataResponse = saveUser($json["data"]);
+	}
 	else if($request ==  "createUser"){
 		$dataResponse = createUser($json["raw"]);
 	}
-else if($request ==  "save"){
-		$dataResponse = saveUser($json["data"]);
-	}
+	
 	if($dataResponse == null)
 		$response = getJSONFromCodeError(202);
 	else{
@@ -134,10 +135,17 @@ else if($request ==  "save"){
 	}
 	
 	function createUser($data){
-	
+		$name=$data['name'];
+		$nickname=$data['nickname'];
+		$mail=$data['mail'];
+        $passwd=$data['password'];
+		
 		$result = mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
-	
+		
 		return "";
+	}
+	
+	
 	function saveUser($data){
 		//BelBin
 		foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
