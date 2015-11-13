@@ -1,13 +1,15 @@
 var ObligatoryLogin = true;
 var AutoHide = true;
 var loadDashboard = true;
+var loadUserListe = true;
 
 
 if(ObligatoryLogin)		$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
 
 if(AutoHide) 		{setInterval(function(){ $('#myModal').modal('hide');},2000);}
 
-if(loadDashboard) {$('#page-wrapper>div>div').load("module/dashboardAdmin.html");}
+if(loadDashboard) {$('#contentContainer').load("module/dashboardAdmin.html");}
+if(loadUserListe) {$('#contentContainer').load("module/listegroup.html");}
 
 
 
