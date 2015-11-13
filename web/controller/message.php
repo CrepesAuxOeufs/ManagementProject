@@ -8,7 +8,9 @@
 		$enum_message = array(
 			200  => "ok",
 			201  => "cant connect bdd",
-			202  => "Request cant be executed"
+			202  => "Request cant be executed",
+			300 => "Login not exist",
+			301 => "Password not correct"
 		);
 	
 		if($code == 200)
