@@ -1,6 +1,7 @@
 <?php
 	include 'message.php';
 	include 'connect.php';
+	include 'session.php';
 	
 	/* 
 	*/
@@ -15,7 +16,7 @@
 							},
 							{
 								"name": "coequipier",
-								"value": "0"
+								"value": "1"
 							},
 							{
 								"name": "eclaireur",
@@ -23,7 +24,7 @@
 							},
 							{
 								"name": "faiseur",
-								"value": "0"
+								"value": "10"
 							},
 							{
 								"name": "organisateur",
@@ -31,7 +32,7 @@
 							},
 							{
 								"name": "evaluateur",
-								"value": "0"
+								"value": "3"
 							},
 							{
 								"name": "creatif",
@@ -49,15 +50,15 @@
 							},
 							{
 								"name": "bdd",
-								"value": "0"
+								"value": "6"
 							},
 							{
 								"name": "programmation",
-								"value": "0"
+								"value": "3"
 							},
 							{
 								"name": "metier",
-								"value": "0"
+								"value": "1"
 							},
 							{
 								"name": "marketing",
@@ -86,9 +87,9 @@
 	*  ########################### */
 	$connexion = connectBDD();
 	
-	//$json = json_decode(file_get_contents("php://input"),true);
+	$json = json_decode(file_get_contents("php://input"),true);
+	//$json = json_decode($jsonString,true);
 	
-	$json = json_decode($jsonString,true);
 	$request = $json["request"];
 	$dataResponse = null;
 	
@@ -108,6 +109,7 @@
 		$response = getJSONFromCodeError(200);
 		$response["data"] = $dataResponse;
 	}
+	
 	echo json_encode($response);
 	
 	
@@ -142,26 +144,26 @@
 		
 		$result = mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
 		
-		return "";
+		return "{}";
 	}
 	
 	
 	function saveUser($data){
 		//BelBin
 		foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
-			$id_belbin = mysql_query ("SELECT * FROM BELBIN WHERE name = '" . $belbin["name"] . "'");
-			mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin . "','" . $belbin["value"] . "')");
+			$id_belbin = mysql_fetch_assoc(mysql_query ("SELECT id FROM BELBIN WHERE name = '" . $belbin["name"] . "' limit 1"));
+			mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin["id"] . "','" . $belbin["value"] . "')");
 		}
 		//Skills
 		foreach ($data["skills"] as $skill){ // web,bdd,programmation,metier,marketing
-			$id_skill = mysql_query ("SELECT * FROM SKILL WHERE name = '" . $skill["name"] . "'");
-			mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill . "','" . $skill["value"] . "')");
+			$id_skill = mysql_fetch_assoc(mysql_query ("SELECT id FROM SKILL WHERE name = '" . $skill["name"] . "' limit 1"));
+			mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill["id"] . "','" . $skill["value"] . "')");
 		}
 		//Incompatibility
 		foreach ($data["incompatibility"] as $user_id_uncompatibility){ 
-			mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility ."')");
+			mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
 		}
 		
-		return "";
+		return "{}";
 	}
 ?>
