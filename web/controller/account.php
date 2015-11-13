@@ -142,7 +142,7 @@
 		
 		$result = mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
 		
-		return "";
+		return "{}";
 	}
 	
 	
