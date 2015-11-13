@@ -43,11 +43,12 @@
     	$name =  $row['name'] ;
     	$nickname =  $row['nickname'] ;
     	$mail =  $row['mail'] ; 
+    	$admin =  $row['admin'] ; 
 
         $isCo = isConnected();
         if(!$isCo)
         {
-            createSession(5, $nickname, $name, $mail);
+            createSession(5, $nickname, $name, $mail, $admin);
             $response = getJSONFromCodeError(200);           
         }
         else

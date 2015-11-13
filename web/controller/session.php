@@ -6,19 +6,18 @@
 	*/
 	session_start(); 
 		
-	function createSession($id,$name,$nickName,$mail){
+	function createSession($id,$name,$nickName,$mail,$admin){
 		$_SESSION['id'] = $id;
 		$_SESSION['name'] = $name;
 		$_SESSION['nickname'] = $nickName;
 		$_SESSION['mail'] = $mail;
 		$_SESSION['connect'] = true;
-		//echo 'Session created ' . $_SESSION['name'] .  ' ' . $_SESSION['nickName'] . '!<br>';
+		$_SESSION['admin'] = $admin;
 	}
 	
 	function destroySession(){
 		$_SESSION['connect'] = false;
-		session_destroy();
-		//echo 'Session destroyed !<br>'
+		session_destroy();$
 	}
 	
 	function isConnected(){
