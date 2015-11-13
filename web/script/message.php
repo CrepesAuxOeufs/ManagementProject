@@ -7,7 +7,8 @@
 	
 		$enum_message = array(
 			200  => "ok",
-			201  => "cant connect bdd"
+			201  => "cant connect bdd",
+			202  => "Request cant be executed"
 		);
 	
 		if($code == 200)
@@ -15,10 +16,10 @@
 		else 
 			$success = false;
 			
-		$response = json_encode(array(
+		$response = array(
 				"success" => $success, 
 				"code" => $code,
-				"message" => $enum_message[$code]));
+				"message" => $enum_message[$code]);
 		return $response;
 	}
 	
