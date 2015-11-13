@@ -11,7 +11,8 @@
 			202  => "Request cant be executed",
 			300 => "Login not exist",
 			301 => "Password not correct",
-			302 => "User already disconnected"
+			302 => "User already disconnected",
+			303 => "User already connected"
 		);
 	
 		if($code == 200)

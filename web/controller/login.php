@@ -44,8 +44,17 @@
     	$nickname =  $row['nickname'] ;
     	$mail =  $row['mail'] ; 
 
-    	createSession(5, $nickname, $name, $mail);
-    	$response = getJSONFromCodeError(200);
+        $isCo = isConnected();
+        if(!$isCo)
+        {
+            createSession(5, $nickname, $name, $mail);
+            $response = getJSONFromCodeError(200);           
+        }
+        else
+        {
+            $response = getJSONFromCodeError(303); 
+        }
+
     }
 
 	echo json_encode($response);
