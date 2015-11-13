@@ -16,6 +16,7 @@
 			echo $row['id'] . '> ' . $row['name'] . ' ' . $row['nickname'] . '  ( ' . $row['mail'] . ' )<br>';
 		}*/
 		ini_set('display_errors','on');
+		return $connexion;
 	}
 	
 ?>
