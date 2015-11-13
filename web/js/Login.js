@@ -12,7 +12,7 @@ $("#LoginSubmit").click(function() {
 	var arr = { login: $("#Loginlogin").value, password: $("#Loginpassword").value }
 	$.ajax(	{
 			type: "POST",
-			url: "login.php",
+			url: "../controller/account.php",
 			data: JSON.stringify(arr),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
@@ -44,7 +44,7 @@ function logingHeaderAddMessage(msg,type){
 	
 	$("#loginHeader").append('<div class="alert alert-'+type+' alert-dismissable" style="margin:5px 5px 0px 5px;"> \
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
-	'+msg+' <a href="#" class="alert-link">Alert Link</a>. </div>');
+	'+msg+'. </div>');
 				
 }
 
