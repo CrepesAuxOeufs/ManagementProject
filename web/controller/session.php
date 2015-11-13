@@ -9,7 +9,7 @@
 	function createSession($id,$name,$nickName,$mail){
 		$_SESSION['id'] = $id;
 		$_SESSION['name'] = $name;
-		$_SESSION['nickName'] = $nickName;
+		$_SESSION['nickname'] = $nickName;
 		$_SESSION['mail'] = $mail;
 		$_SESSION['connect'] = true;
 		//echo 'Session created ' . $_SESSION['name'] .  ' ' . $_SESSION['nickName'] . '!<br>';
@@ -26,5 +26,18 @@
 			return true;
 		else
 			return false;
+	}
+	
+	function getSessionID(){
+		return $_SESSION['id'];
+	}
+	function getSessionName(){
+		return $_SESSION['name'];
+	}
+	function getSessionNickname(){
+		return $_SESSION['nickname'];
+	}
+	function getSessionMail(){
+		return $_SESSION['mail'];
 	}
 ?>
