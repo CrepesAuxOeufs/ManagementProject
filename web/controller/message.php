@@ -10,7 +10,8 @@
 			201  => "cant connect bdd",
 			202  => "Request cant be executed",
 			300 => "Login not exist",
-			301 => "Password not correct"
+			301 => "Password not correct",
+			302 => "User already disconnected"
 		);
 	
 		if($code == 200)

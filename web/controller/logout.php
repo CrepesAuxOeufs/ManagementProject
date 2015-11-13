@@ -12,7 +12,7 @@
 	}
 	else
 	{
-		$response = getJSONFromCodeError(202);
+		$response = getJSONFromCodeError(302);
 	}
 	echo json_encode($response);
 
