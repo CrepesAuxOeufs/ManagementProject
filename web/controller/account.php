@@ -15,7 +15,9 @@
 	if($request ==  "getAllAccount"){
 		$dataResponse = getUserList($json["raw"]);
 	}
-	
+	if($request ==  "createUser"){
+		$dataResponse = createUser($json["raw"]);
+	}
 	if($dataResponse == null)
 		$response = getJSONFromCodeError(202);
 	else{
@@ -54,9 +56,9 @@
 		$mail=$data['mail'];
         $passwd=$data['password'];
 		
-		mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
+		$result = mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
 		
-	
+		return "";
 	}
 	
 	
