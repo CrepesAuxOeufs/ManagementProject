@@ -49,6 +49,13 @@
 	}
 	
 	function createUser($data){
+		$name=$data['name'];
+		$nickname=$data['nickname'];
+		$mail=$data['mail'];
+        $passwd=$data['password'];
+		
+		mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
+		
 	
 	}
 	
