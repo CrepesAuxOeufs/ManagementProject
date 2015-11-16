@@ -1,5 +1,5 @@
-var ObligatoryLogin = false;
-var AutoHide = true;
+var ObligatoryLogin = true;
+var AutoHide = false;
 var loadDashboard = true;
 var loadUserListe = true;
 
@@ -13,16 +13,26 @@ if(loadUserListe) {$('#contentContainer').load("module/listegroup.html");}
 
 
 
+$("#LogoutSubmit").click(function() {
+	$.ajax(	{
+			type: "GET",
+			url: "../controller/logout.php",
+			success: function(msg){
+				console.log(msg);
+				window.location.replace("login.html");
+			}
+	});
+});
 
 $("#LoginSubmit").click(function() {
 //twitter bootstrap script
 	
-	if(document.getElementById("Loginlogin").value == "" || document.getElementById("Loginlogin").value == ""){
+	if(document.getElementById("login_email").value == "" || document.getElementById("login_password").value == ""){
 				logingHeaderAddMessage("erreur : Email ou mot de passe non rempli", "warning");
 				return;
 	}
 	
-	var arr = { login: document.getElementById("Loginlogin").value, password: document.getElementById("Loginpassword").value };
+	var arr = { login: document.getElementById("login_email").value, password: document.getElementById("login_password").value };
 	
 	$.ajax(	{
 			type: "POST",
@@ -32,7 +42,7 @@ $("#LoginSubmit").click(function() {
 			success: function(msg){
 				console.log(msg);
 				if(msg["success"] == true){
-					setInterval(function()	{$('#myModal').modal('hide'); },2000);
+					setInterval(function()	{$('#myModal').modal('hide');window.location.replace("index.html"); },2000);
 					logingHeaderAddMessage("Vous êtes maintenant connecté","success");
 				}
 				else
