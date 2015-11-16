@@ -3,6 +3,7 @@
 	include 'connect.php';
 	include 'session.php';
 
+	error_reporting(0);
 	connectBDD();
 
 	$json = json_decode(file_get_contents("php://input"),true);

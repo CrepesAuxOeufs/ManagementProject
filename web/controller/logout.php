@@ -3,6 +3,7 @@
 	include 'connect.php';
 	include 'session.php';
 
+	error_reporting(0);
 	$testConnect = isConnected();
 
 	if ($testConnect)

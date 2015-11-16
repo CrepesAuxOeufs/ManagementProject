@@ -3,6 +3,7 @@
 	* connexion: connectBDD()
 	* disable avertissment message for mysql in the future depreciated : ini_set('display_errors','off') // on off
 	*/
+	error_reporting(0);
 	function connectBDD(){
 		ini_set('display_errors','off');
 		$connexion = mysql_connect("mysql.imerir.com", "parcevaux3a05","dharV6DSSx88x5MK");
