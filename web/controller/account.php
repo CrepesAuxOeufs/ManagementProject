@@ -102,7 +102,9 @@
 	else if($request ==  "createUser"){
 		$dataResponse = createUser($json["raw"]);
 	}
-	
+	else if ($request == "saveGroups"){
+		$dataResponse = saveGroups($json["data"]);
+	}
 	if($dataResponse == null)
 		$response = getJSONFromCodeError(202);
 	else{
@@ -164,6 +166,22 @@
 			mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
 		}
 		
+		return "{}";
+	}
+	
+		function saveGroups($data)
+	{
+		//GROUP
+		foreach($data["groups"] as $groups){ // Save group in BDD
+			mysql_query ("INSERT INTO `GROUP`( `project_id`, `name`) VALUES ('".$groups["project_id"]."','".$groups["name"]."')");
+			$id_group = mysql_fetch_assoc(mysql_query ("SELECT id FROM `GROUP` WHERE name = '" . $groups["name"] . "' limit 1"));
+			echo "Id du group:			".$id_group["id"]."			";
+			//USER_GROUP
+			foreach($groups["user"] as $user){
+				mysql_query ("INSERT INTO `USER_GROUP`( `user_id`, `group_id`) VALUES ('".$user["id"]."','".$id_group["id"]."')");
+			}
+		
+		}
 		return "{}";
 	}
 ?>

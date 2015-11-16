@@ -6,11 +6,14 @@
 	connectBDD();
 
 	$json = json_decode(file_get_contents("php://input"),true);
-	//$json = '{ "login": "directeur@imerir.com", "password": "imerir" }';
+	$login =    $json['login'];
+    $password = $json['password'];
 
-	$parsed_json = json_decode($json);
-	$login =    $parsed_json -> {'login'};
-	$password = $parsed_json -> {'password'};
+    /* for test*/
+    //$json = '{ "login": "directeur@imerir.com", "password": "imerir" }';
+	//$parsed_json = json_decode($json);
+	//$login =    $parsed_json -> {'login'};
+	//$password = $parsed_json -> {'password'};
 
     $result = mysql_query( "SELECT * FROM USER WHERE mail =  '". $login ."'");
 
@@ -20,7 +23,7 @@
     $row = mysql_fetch_assoc($result);
     
     /* If login exist */
-    if ($row['mail'] == $login)
+    if ($row['mail'] == $login && $login != null)
     {
     	$logOk = true ;
     }
@@ -55,7 +58,6 @@
         {
             $response = getJSONFromCodeError(303); 
         }
-
     }
 
 	echo json_encode($response);
