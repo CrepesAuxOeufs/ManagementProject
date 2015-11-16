@@ -44,6 +44,7 @@
     /* if all is ok */
     if($logOk && $passOk)
     {
+    	$id =  $row['id'] ;
     	$name =  $row['name'] ;
     	$nickname =  $row['nickname'] ;
     	$mail =  $row['mail'] ; 
@@ -52,7 +53,7 @@
         $isCo = isConnected();
         if(!$isCo)
         {
-            createSession(5, $nickname, $name, $mail, $admin);
+            createSession($id, $nickname, $name, $mail, $admin);
             $response = getJSONFromCodeError(200);           
         }
         else
