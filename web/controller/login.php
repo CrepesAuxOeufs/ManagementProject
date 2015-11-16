@@ -10,7 +10,7 @@
 	$login =    $json['login'];
     $password = $json['password'];
 
-    /* for test*/
+    /* for test */
     //$json = '{ "login": "directeur@imerir.com", "password": "imerir" }';
 	//$parsed_json = json_decode($json);
 	//$login =    $parsed_json -> {'login'};
