@@ -1,5 +1,5 @@
-var ObligatoryLogin = true;
-var AutoHide = false;
+var ObligatoryLogin = false;
+var AutoHide = true;
 var loadDashboard = true;
 var loadUserListe = true;
 
