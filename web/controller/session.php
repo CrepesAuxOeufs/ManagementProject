@@ -4,6 +4,7 @@
 	* Destroy current session (logout) : destroySession();
 	* Test is user online : isConnected();
 	*/
+	error_reporting(0);
 	session_start(); 
 		
 	function createSession($id,$name,$nickName,$mail,$admin){
