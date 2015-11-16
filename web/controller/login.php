@@ -20,7 +20,7 @@
     $row = mysql_fetch_assoc($result);
     
     /* If login exist */
-    if ($row['mail'] == $login)
+    if ($row['mail'] == $login && $login != null)
     {
     	$logOk = true ;
     }
@@ -55,7 +55,6 @@
         {
             $response = getJSONFromCodeError(303); 
         }
-
     }
 
 	echo json_encode($response);
