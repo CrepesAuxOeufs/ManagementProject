@@ -152,21 +152,22 @@
 	
 	
 	function saveUser($data){
-		//BelBin
-		foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
-			$id_belbin = mysql_fetch_assoc(mysql_query ("SELECT id FROM BELBIN WHERE name = '" . $belbin["name"] . "' limit 1"));
-			mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin["id"] . "','" . $belbin["value"] . "')");
+		if(getSessionID() != null){
+			//BelBin
+			foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
+				$id_belbin = mysql_fetch_assoc(mysql_query ("SELECT id FROM BELBIN WHERE name = '" . $belbin["name"] . "' limit 1"));
+				mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin["id"] . "','" . $belbin["value"] . "')");
+			}
+			//Skills
+			foreach ($data["skills"] as $skill){ // web,bdd,programmation,metier,marketing
+				$id_skill = mysql_fetch_assoc(mysql_query ("SELECT id FROM SKILL WHERE name = '" . $skill["name"] . "' limit 1"));
+				mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill["id"] . "','" . $skill["value"] . "')");
+			}
+			//Incompatibility
+			foreach ($data["incompatibility"] as $user_id_uncompatibility){ 
+				mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
+			}
 		}
-		//Skills
-		foreach ($data["skills"] as $skill){ // web,bdd,programmation,metier,marketing
-			$id_skill = mysql_fetch_assoc(mysql_query ("SELECT id FROM SKILL WHERE name = '" . $skill["name"] . "' limit 1"));
-			mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill["id"] . "','" . $skill["value"] . "')");
-		}
-		//Incompatibility
-		foreach ($data["incompatibility"] as $user_id_uncompatibility){ 
-			mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
-		}
-		
 		return "{}";
 	}
 	
