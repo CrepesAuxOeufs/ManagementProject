@@ -17,7 +17,7 @@
 	
 	function destroySession(){
 		$_SESSION['connect'] = false;
-		session_destroy();$
+		session_destroy();
 	}
 	
 	function isConnected(){
