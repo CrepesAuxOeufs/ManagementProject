@@ -20,7 +20,7 @@ $("#LogoutSubmit").click(function() {
 			url: "../controller/logout.php",
 			success: function(msg){
 				console.log(msg);
-				window.location.replace("login.html");
+				window.location.replace("index.html");
 			}
 	});
 });
@@ -87,6 +87,17 @@ function getSession (){
 			success: function(msg){
 				
 				if(msg.data["admin"] == null )		$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
+				
+				
+				if(msg.data["admin"] == 1){
+					$("#side-menu").load("module/menu-administration.html");
+				}
+				
+				if(msg.data["admin"] == 0){
+					//window.location.replace("profile.html");
+					
+				}
+				
 
 				if(AutoHide) 		{setInterval(function(){ $('#myModal').modal('hide');},2000);}
 
