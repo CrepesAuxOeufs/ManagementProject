@@ -36,6 +36,30 @@ function getUsers(){
 	
 }
 
+function create_user(){
+	var params_create_user = {
+								request: "createUser",
+								raw: {"name": $('#user_name').val(),"nickname": $('#user_nickname').val(),"mail": $('#user_mail').val(),"password": $('#user_password').val()}
+							};
+							
+							
+							
+	$.ajax(	{
+			type: "POST",
+			url: "../controller/account.php",
+			data: JSON.stringify(params_create_user),
+			dataType: 'json',
+			success: function(msg){
+				console.log("create_user");
+				
+			//GenAllUserPage(msg.data);
+			}
+	});
+}
+
+
+
+
 function GenAllUserPage(userobject){
 	
 	
