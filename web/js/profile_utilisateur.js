@@ -90,13 +90,11 @@ function getSession (){
 				
 				
 				if(msg.data["admin"] == 1){
-					console.log("show");
-					$("#menu_admin").show();
-					window.location.replace("users.html");
+					$("#side-menu").load("module/menu-administration.html");
 				}
 				
 				if(msg.data["admin"] == 0){
-					window.location.replace("profil_utilisateur.html");
+					//window.location.replace("profile.html");
 					
 				}
 				

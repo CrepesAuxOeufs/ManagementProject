@@ -66,10 +66,11 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="profil_utilisateur.html"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li>
+							<a id="LogoutSubmit"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -118,69 +119,114 @@
             <!-- /.navbar-static-side -->
         </nav>
 	
-        <div id="page-wrapper">
+        <div id="page-wrapper" name="groups">
             <div class="row">
-			
+				
                 <div id="contentContainer" class="col-lg-12">
-                    <div class="panel panel-default">
-					<button type="button" class="btn btn-success" id="BTN_print">Imprimer la page</button>
-                        <div class="panel-heading">
-                            Liste des utilisateurs 
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>name</th>
-                                            <th>nickname</th>
-                                            <th>mail</th>
-                                            <th>password</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="user_data">
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                            <div class="well">
-                                <h4>Ajout d'un nouvel utilisateur</h4>
-								
-								<div class="form-group">
-									<label>Nom</label>
-									<input id="user_name" class="form-control" placeholder="Enter text">
-								</div>
-								<div class="form-group">
-									<label>Prenom</label>
-									<input id="user_nickname" class="form-control" placeholder="Enter text">
-								</div>
-								<div class="form-group">
-									<label>Mail</label>
-									<input id="user_mail"class="form-control" placeholder="Enter text">
-								</div>
-								<div class="form-group">
-									<label>Mot de passe</label>
-									<input id="user_password" class="form-control" placeholder="Enter text">
-								</div>
-								<button onClick="create_user()" class="btn btn-primary">Valider</button>
-								
-								
-								
-								
-                                <!--<p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>-->
-                            </div>
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-					
-					<script src="../js/jspdf.min.js"></script>
-					<script src="../js/pdf.js"></script>
+                    <h1 class="page-header">Profil utilisateur</h1>
                 </div>
+				
+				<ul class="nav" id="side-menu">
+					<li>
+						<a href="#"><i class="fa fa-table fa-fw"></i> Belbin<span class="fa arrow"></span></a>
+						<ul class="panel-heading">
+							<div class="form-group">
+								<label>President <input class="form-control" id="profile_belbin_president"></label>
+								<label>Coequipier <input class="form-control" id="profile_belbin_coequipier"></label>
+								<label>Eclaireur <input class="form-control" id="profile_belbin_eclaireur"></label>
+								<label>Faiseur <input class="form-control" id="profile_belbin_faiseur"></label>
+								<label>Organisateur <input class="form-control" id="profile_belbin_organsiateur"></label>
+								<label>Evaluateur <input class="form-control" id="profile_belbin_evaluateur"></label>
+								<label>Creatif <input class="form-control" id="profile_belbin_creatif"></label>
+								<label>Finisseur <input class="form-control" id="profile_belbin_finisseur"></label>
+							</div>
+						</ul>
+						<!-- /.nav-second-level -->
+					</li> 
+					<li>
+						<a href="#"><i class="fa fa-table fa-fw"></i> Compétence<span class="fa arrow"></span></a>
+						<ul class="panel-heading">
+							<div class="form-group">
+								<label>Web <input class="form-control" id="profile_skill_web"></label>
+								<label>BDD <input class="form-control" id="profile_skill_bdd"></label>
+								<label>Programmation <input class="form-control" id="profile_skill_programmation"></label>
+								<label>Metier <input class="form-control" id="profile_skill_metier"></label>
+								<label>Marketing <input class="form-control" id="profile_skill_marketing"></label>
+							</div>
+						</ul>
+						<!-- /.nav-second-level -->
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-table fa-fw"></i> Incompatibilité<span class="fa arrow"></span></a>
+						<ul class="panel-heading">
+							<div class="form-group">
+								<div class="panel-body">
+									<div class="table-responsive table-bordered">
+										<table class="table" id="profile_tab_incompatibility">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Nom</th>
+													<th>Prenom</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<select class="form-control" id="select_incompatibility">
+								</select>
+                                <button type="button" class="btn btn-success" id="profile_sumbit_incompatibility">Ajouter</button>
+							</div>
+						</ul>
+						
+						
+						<button type="button" class="btn btn-success" id="profile_sumbit_save">Sauvegarder</button>
+				
+				
+				
+				
+				
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+					  <div id="loginHeader" class="modal-header">
+						
+						<h4 class="modal-title" id="myModalLabel">Please Sign In</h4>
+					  </div>
+					  <div class="modal-body">
+					  
+						
+							
+								
+										<div class="form-group">
+											<input id="login_email" class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
+										</div>
+										<div class="form-group">
+											<input id="login_password" class="form-control" placeholder="Password" name="password" type="password" value="">
+										</div>
+										<div class="checkbox">
+											<label>
+												<input name="remember" type="checkbox" value="Remember Me">Remember Me
+											</label>
+										</div>
+										
+									
+							
+					  <div class="modal-footer">
+						<!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+						<button type="button" id="LoginSubmit" class="btn btn-success">Login</button>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
+				
+				
+				
+				
 				
             </div>
             <!-- /.row -->
@@ -197,12 +243,14 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-	<script src="../js/liste_utilisateurs.js"></script>
+	<script src="../js/profil_utilisateur.js"></script>
+	<script src="../js/jspdf.min.js"></script>
+	<script src="../js/pdf.js"></script>
+	<script src="../js/profile.js"></script>
    
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
-	
 
 </body>
 
