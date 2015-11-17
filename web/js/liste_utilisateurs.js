@@ -52,7 +52,6 @@ function create_user(){
 			success: function(msg){
 				console.log("create_user");
 				
-			//GenAllUserPage(msg.data);
 			}
 	});
 }
