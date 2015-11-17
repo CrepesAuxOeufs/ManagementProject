@@ -1,33 +1,30 @@
 
 var params_allGroups = {
-							request: "showGroups",
-							data: {project_id:1}
+							request: "getAllGroup",
+							raw: ["name","user"]
 						};
 						
 						
 
 $.ajax(	{
 		type: "POST",
-		url: "../controller/recupgroup.php",
-		data: JSON.stringify(params_allUsers),
+		url: "../controller/account.php",
+		data: JSON.stringify(params_allGroups),
 		dataType: 'json',
 		success: function(msg){
 			console.log(msg);
-			/*
-			var users = msg.data;
-			removeOptions(document.getElementById("select_incompatibility"));
-			for(user in users){
-				var user_id = users[user].id;
-				var user_name = users[user].name;
-				var user_nickname = users[user].nickname;
+			var groups = msg.data;
+			for(group in groups){
+				var group_id = groups[group].name;
+				var group_name = groups[group].user;
 				
-				var option = document.createElement("option");
-				option.text = user_name + " " + user_nickname;
-				option.profile_name = user_name;
-				option.profile_nickname = user_nickname;
-				option.profile_id = user_id;
-				document.getElementById("select_incompatibility").add(option);
 			}
-			*/
 		}
 });
+
+
+//button for print list group
+$("#profile_sumbit_incompatibility").click(function() {
+	
+});
+
