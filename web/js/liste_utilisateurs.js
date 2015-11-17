@@ -1,7 +1,7 @@
-var ObligatoryLogin = false;
+var ObligatoryLogin = true;
 var AutoHide = true;
 var loadDashboard = true;
-var loadUserListe = false;
+var loadUserListe = true;
 
 
 if(ObligatoryLogin)		$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
@@ -9,7 +9,7 @@ if(ObligatoryLogin)		$('#myModal').modal({backdrop:'static',keyboard:false, show
 if(AutoHide) 		{setInterval(function(){ $('#myModal').modal('hide');},2000);}
 
 if(loadDashboard) {$('#contentContainer').load("module/dashboardAdmin.html");}
-if(loadUserListe) {$('#contentContainer').load("module/listegroup.html");}
+if(loadUserListe) {$('#contentContainer').load("module/listeUSer.html");}
 
 
 
@@ -21,7 +21,7 @@ $("#LoginSubmit").click(function() {
 	var arr = { login: $("#Loginlogin").value, password: $("#Loginpassword").value }
 	$.ajax(	{
 			type: "POST",
-			url: "../controller/login.php",
+			url: "../controller/utilisateurs.php",
 			data: JSON.stringify(arr),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
