@@ -92,26 +92,21 @@
 	//$json = json_decode($jsonString,true);
 	
 	$request = $json["request"];
-	$dataResponse = null;
-	
+	$response = null;
+
 	if($request ==  "getAllAccount"){
-		$dataResponse = getUserList($json["raw"]);
+		$response = getUserList($json["raw"]);
 	}
 	else if($request ==  "save"){
-		$dataResponse = saveUser($json["data"]);
+		$response = saveUser($json["data"]);
 	}
 	else if($request ==  "createUser"){
-		$dataResponse = createUser($json["raw"]);
+		$response = createUser($json["raw"]);
 	}
 	else if ($request == "saveGroups"){
-		$dataResponse = saveGroups($json["data"]);
+		$response = saveGroups($json["data"]);
 	}
-	if($dataResponse == null)
-		$response = getJSONFromCodeError(202);
-	else{
-		$response = getJSONFromCodeError(200);
-		$response["data"] = $dataResponse;
-	}
+	
 	
 	echo json_encode($response);
 	
@@ -136,7 +131,13 @@
 			array_push($users, $userInfo);
 		}
 		
-		return $users;
+		if(	$users == null)
+			$response = getJSONFromCodeError(202);
+		else{
+			$response = getJSONFromCodeError(200);
+			$response["data"] = $users;
+		}
+		return $response;
 	}
 	
 	function createUser($data){
@@ -147,28 +148,43 @@
 		
 		$result = mysql_query("INSERT INTO `USER`(`name`, `nickname`, `mail`, `password`) VALUES ('". $name ."','".$nickname."','". $mail ."','".$passwd."')");
 		
-		return "{}";
+		$response = getJSONFromCodeError(200);
+		$response["data"] = "{}";
+		return $response;
 	}
 	
 	
 	function saveUser($data){
 		if(getSessionID() != null){
-			//BelBin
-			foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
-				$id_belbin = mysql_fetch_assoc(mysql_query ("SELECT id FROM BELBIN WHERE name = '" . $belbin["name"] . "' limit 1"));
-				mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin["id"] . "','" . $belbin["value"] . "')");
+			$result = mysql_query( "SELECT profil FROM USER WHERE id =  '". getSessionID() ."'");
+			$row = mysql_fetch_assoc($result);
+			if($row['profil'] == 0){
+				//BelBin
+				foreach ($data["belbin"] as $belbin){ // president,coequipier,eclaireur,faiseur,organisateur,evaluateur,creatif,finisseur
+					$id_belbin = mysql_fetch_assoc(mysql_query ("SELECT id FROM BELBIN WHERE name = '" . $belbin["name"] . "' limit 1"));
+					mysql_query ("INSERT INTO USER_BELBIN(user_id, belbin_id,value) VALUES ('" . getSessionID() . "','" . $id_belbin["id"] . "','" . $belbin["value"] . "')");
+				}
+				//Skills
+				foreach ($data["skills"] as $skill){ // web,bdd,programmation,metier,marketing
+					$id_skill = mysql_fetch_assoc(mysql_query ("SELECT id FROM SKILL WHERE name = '" . $skill["name"] . "' limit 1"));
+					mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill["id"] . "','" . $skill["value"] . "')");
+				}
+				//Incompatibility
+				foreach ($data["incompatibility"] as $user_id_uncompatibility){ 
+					mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
+				}
+				
+				mysql_query ("UPDATE USER SET profil=true WHERE id='" . getSessionID() . "'");
+				$response = getJSONFromCodeError(200);
+				return $response;
 			}
-			//Skills
-			foreach ($data["skills"] as $skill){ // web,bdd,programmation,metier,marketing
-				$id_skill = mysql_fetch_assoc(mysql_query ("SELECT id FROM SKILL WHERE name = '" . $skill["name"] . "' limit 1"));
-				mysql_query ("INSERT INTO USER_SKILL(user_id, skill_id,value) VALUES ('" . getSessionID() . "','" . $id_skill["id"] . "','" . $skill["value"] . "')");
-			}
-			//Incompatibility
-			foreach ($data["incompatibility"] as $user_id_uncompatibility){ 
-				mysql_query ("INSERT INTO USER_UNCOMPATIBILITY(user_id, user_id_uncompatibility) VALUES ('" . getSessionID() . "','" . $user_id_uncompatibility["id"] ."')");
+			else{
+				$response = getJSONFromCodeError(305);
+				return $response;
 			}
 		}
-		return "{}";
+		$response = getJSONFromCodeError(304);
+		return $response;
 	}
 	
 		function saveGroups($data)
@@ -184,6 +200,8 @@
 			}
 		
 		}
-		return "{}";
+		$response = getJSONFromCodeError(200);
+		$response["data"] = "{}";
+		return $response;
 	}
 ?>
