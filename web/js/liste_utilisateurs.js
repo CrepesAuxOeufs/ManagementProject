@@ -1,6 +1,6 @@
 var ObligatoryLogin = true;
 var AutoHide = true;
-var loadDashboard = true;
+var loadDashboard = false;
 var loadUserListe = true;
 
 
@@ -9,52 +9,78 @@ if(ObligatoryLogin)		$('#myModal').modal({backdrop:'static',keyboard:false, show
 if(AutoHide) 		{setInterval(function(){ $('#myModal').modal('hide');},2000);}
 
 if(loadDashboard) {$('#contentContainer').load("module/dashboardAdmin.html");}
-if(loadUserListe) {$('#contentContainer').load("module/listeUSer.html");}
+if(loadUserListe) {$('#contentContainer').load("module/listeUser.html");}
 
 
+$( document ).ready( getUsers );
 
 
-$("#LoginSubmit").click(function() {
-//twitter bootstrap script
+function getUsers(){
 	
-		
-	var arr = { login: $("#Loginlogin").value, password: $("#Loginpassword").value }
+	var params_allUsers = {
+								request: "getAllAccount",
+								raw: ["id","name","nickname","mail","password"]
+							};
+								
 	$.ajax(	{
 			type: "POST",
-			url: "../controller/utilisateurs.php",
-			data: JSON.stringify(arr),
-			contentType: 'application/json; charset=utf-8',
+			url: "../controller/account.php",
+			data: JSON.stringify(params_allUsers),
 			dataType: 'json',
 			success: function(msg){
-				console.log(msg);
-				logingHeaderAddMessage(msg,"success");
+				console.log("liste_userConnection");
 				
-				if(msg["success"] == true){
-					setInterval(function()	{
-												$('#myModal').modal('hide');
-											},2000);
-					
-				}
-				
-			},
-			error: function(jqXHR, textStatus, errorThrown){
-				console.log(jqXHR);
-				console.log(textStatus);
-				console.log(errorThrown);
-				
-				logingHeaderAddMessage("erreur : " + jqXHR["status"]+" " + errorThrown , "warning");
-				
+			GenAllUserPage(msg.data);
 			}
 	});
 	
-});
-//type info warning danger success
-function logingHeaderAddMessage(msg,type){
-	
-	$("#loginHeader").append('<div class="alert alert-'+type+' alert-dismissable" style="margin:5px 5px 0px 5px;"> \
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
-	'+msg+'. </div>');
-				
 }
+
+function GenAllUserPage(userobject){
+	
+	
+	for (user in userobject){
+		
+		
+		console.log(userobject[user]);
+		
+		$('<tr>').append(
+			$('<td>').text(userobject[user]["id"]),
+			$('<td>').text(userobject[user]["name"]),
+			$('<td>').text(userobject[user]["nickname"]),
+			$('<td>').text(userobject[user]["mail"]),
+			$('<td>').text(userobject[user]["password"])
+		
+		).appendTo('#user_data');
+		
+		
+		/*var tr = document.createElement('tr');
+		tr.html = "<td>"+userobject[user]["id"]+"</td>";
+		tr.html +="<td>"+userobject[user]["name"]+"</td>";
+		tr.html +="<td>"+userobject[user]["nickname"]+"</td>";
+		tr.html +="<td>"+userobject[user]["mail"]+"</td>";
+		tr.html +="<td>"+userobject[user]["password"]+"</td>";
+		console.log(tr);
+		$('#user_data').append(tr);*/
+		
+		
+    
+		
+		
+	}
+	
+	
+	$('body').append('<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>');
+	$('body').append('<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>');
+	$('body').append("<script>$(document).ready(function() {$('#dataTables-example').DataTable({responsive: true});});</script>");
+	
+	
+		
+	
+	
+	
+}
+
+
 
 
