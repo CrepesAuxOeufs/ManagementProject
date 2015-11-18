@@ -28,12 +28,29 @@
 <body>
 	
     <div id="wrapper">
+		<div id="errorHeader" class="panel-heading"></div>
         <div id="box_loading"><label>Generation en cours ... </label></div>
-        <div id="box_param">
+        <div id="box_param" style="padding: 20px;">
 			<div class="form-group">
-				<label>Nombre de groupe <input class="form-control" id="label_nb_groups"></label>
+				<label>Nombre de groupe :</label>
+				<input class="form-control" id="label_nb_groups"><br>
+				<label>Type de génération : </label>
+				<select class="form-control" id="select_generate_type">
+					<option id="basic">basic</option>
+					<option id="complexe">complexe</option>
+				</select><br>
+				<div>
+				<label>Informations de génération :</label><br>
+					<div style="margin-left:30px;">
+						Nombre de personnes : <a id="nbUsers"></a><br>
+						Nombre de groupes : <a id="nbGroups"></a><br>
+						Répartition : <br>
+						<div id="groupes_draw" style="margin-left:60px;"><div>
+					</div>
+				</div>
+				<br>
 			</div>
-            <button type="button" class="btn btn-success" id="groups_generate_sumbit">Generer</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="groups_generate_sumbit">Lancer la génération</button>
 		</div>
     </div>
     <!-- /#wrapper -->
