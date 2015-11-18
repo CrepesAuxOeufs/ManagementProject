@@ -1,5 +1,5 @@
 var AccountType = { unconnected:0,admin:1,classic:2};
-var Page = {none:0, login:1, profile:2, admin:3};
+var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4};
 
 current_user = AccountType.unconnected;
 current_page = Page.login;
@@ -120,12 +120,10 @@ function try_login(){
 			success: function(msg){
 				console.log(msg);
 				if(msg["success"] == true){
-					setTimeout(function()	{$('#myModal').modal('hide');window.location.replace("index.html"); },2000);
+					
 					logingHeaderAddMessage("Vous êtes maintenant connecté","success");
-					updateSession();
-					load_main_page(Page.none);
-					
-					
+					setTimeout(function()	{updateSession();},2000);
+
 				}
 				else{
 					logingHeaderAddMessage("erreur (" + msg.code + "): " + msg.message , "warning");
@@ -158,6 +156,14 @@ function load_main_page(page){
 		
 		case Page.admin:
 		$('#contentContainer').load("module/user.html");
+		
+		break;
+		case Page.user:
+		$('#contentContainer').load("module/user.html");
+		
+		break;
+		case Page.group:
+		$('#contentContainer').load("module/group.html");
 		
 		break;
 		

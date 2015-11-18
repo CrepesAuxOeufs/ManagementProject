@@ -25,7 +25,10 @@ function create_user(){
 								raw: {"name": $('#user_name').val(),"nickname": $('#user_nickname').val(),"mail": $('#user_mail').val(),"password": $('#user_password').val()}
 							};
 							
-							
+	$('#user_name').val("");
+	$('#user_nickname').val("");
+	$('#user_mail').val("");
+	$('#user_password').val("");
 							
 	$.ajax(	{
 			type: "POST",
@@ -34,6 +37,8 @@ function create_user(){
 			dataType: 'json',
 			success: function(msg){
 				console.log("create_user");
+				getUsers();
+				userAddMessage("success","success");
 				
 			}
 	});
@@ -85,6 +90,16 @@ function GenAllUserPage(userobject){
 	
 	
 	
+}
+
+
+function userAddMessage(msg,type){
+	var uuid = generateUUID();
+	console.log(uuid);
+	$("#userMsg").append('<div class="alert alert-'+type+' alert-dismissable" id="' + uuid+ '" style="margin:5px 5px 0px 5px;"> \
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
+	'+msg+'. </div>');
+	setTimeout(function()	{document.getElementById(uuid).remove();},5000);
 }
 
 
