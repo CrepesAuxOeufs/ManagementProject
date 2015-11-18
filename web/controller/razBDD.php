@@ -51,10 +51,10 @@
 		$row = mysql_fetch_assoc($result);
 		$id = $row['id']; 
 
-		/* Nous avons 6 belbins */
-		for ($j = 1 ; $j <= 6 ; $j++ )
+		/* Nous avons 8 belbins */
+		for ($j = 1 ; $j <= 8 ; $j++ )
 		{
-			$lvlBelbin = rand(0, 8);
+			$lvlBelbin = rand(0, 9);
 
 			mysql_query("INSERT INTO `USER_BELBIN` (`user_id`, `belbin_id`, `value`) 
 						VALUES ('". $id ."','". $j ."','". $lvlBelbin ."')");
