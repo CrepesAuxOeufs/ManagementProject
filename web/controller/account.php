@@ -168,6 +168,7 @@
 				}
 				
 				mysql_query ("UPDATE USER SET profil=true WHERE id='" . getSessionID() . "'");
+				$_SESSION['profil'] = 1;
 				$response = getJSONFromCodeError(200);
 				return $response;
 			}
