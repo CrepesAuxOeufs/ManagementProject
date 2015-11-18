@@ -10,14 +10,23 @@
 	*  ########################### */
 	$connexion = connectBDD();
 	
-	$json = json_decode(file_get_contents("php://input"),true);
+	/*
+	$jsonString = '{
+								"request": "getAllAccount",
+								"raw": ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
+								"userId" : "383"
+							}';*/
 	//$json = json_decode($jsonString,true);
+	
+	
+	
+	$json = json_decode(file_get_contents("php://input"),true);
 	
 	$request = $json["request"];
 	$response = null;
 
 	if($request ==  "getAllAccount"){
-		$response = getUserList($json["raw"]);
+		$response = getUserList($json["userId"],$json["raw"]);
 	}
 	else if($request ==  "save"){
 		$response = saveUser($json["data"]);
@@ -37,7 +46,8 @@
 	* 			FUNCTIONS
 	*  ########################### */
 	
-	function getUserList($data){
+	function getUserList($userId,$data){
+		$users = array();
 		$raw = "";
 		$belbin = false;
 		$skills = false;
@@ -52,9 +62,12 @@
 			else
 				$raw = $raw . $value .',';
 		$raw = substr($raw,0,-1);
-		
-        $result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0");
-		$users = array();
+			
+		if($userId != null)
+			$result = mysql_query("SELECT ". $raw ." FROM USER WHERE USER.id = '". $userId . "' AND admin = 0");
+		else
+			$result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0");
+			
         while($row = mysql_fetch_assoc($result))
         {
 			$userInfo = array();
