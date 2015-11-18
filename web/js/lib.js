@@ -4,6 +4,8 @@ var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4,alreadyRegistred:
 current_user = AccountType.unconnected;
 current_page = Page.login;
 
+current_profil = 0;
+
 function updateSession (){
 	$.ajax(	{
 			type: "POST",
@@ -39,6 +41,9 @@ function updateSession (){
 					current_user = AccountType.classic;
 				else
 					current_user = AccountType.admin;
+				
+				if(msg.data["profil"] == 1 )
+					current_profil = 1;
 				
 				displayAccountPage();
 				
@@ -175,8 +180,12 @@ function load_main_page(page){
 
 
 function displayAccountPage(){
-		if(current_user == AccountType.classic)
-			current_page = Page.profile;
+		if(current_user == AccountType.classic){
+			if(current_profil == 0)
+				current_page = Page.profile;
+			else
+				current_page = Page.alreadyRegistred;
+		}
 		else if(current_user == AccountType.admin)
 			current_page = Page.admin;
 		
