@@ -1,5 +1,5 @@
 var AccountType = { unconnected:0,admin:1,classic:2};
-var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4,alreadyRegistred:5};
+var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4,alreadyRegistred:5,groupeGen:6,regles:7};
 
 current_user = AccountType.unconnected;
 current_page = Page.login;
@@ -144,6 +144,9 @@ function try_login(){
 }
 
 function load_main_page(page){
+	if(current_page != page)
+		current_page = page;
+	
 	switch(page){
 		case Page.none:
 			$('#contentContainer').load("module/blank.html");
@@ -172,7 +175,15 @@ function load_main_page(page){
 		break;
 		case Page.alreadyRegistred:
 			$('#contentContainer').load("module/AlreadyRegistred.html");
+			
 		break;
+		case Page.groupeGen:
+			$('#contentContainer').load("module/groupsGen.html");
+		break;
+		
+		case Page.regles:
+			$('#contentContainer').load("module/regles.html");
+		break
 		
 		
 	}
