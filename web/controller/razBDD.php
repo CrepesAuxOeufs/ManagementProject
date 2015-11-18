@@ -90,7 +90,7 @@
 
 		if ($nbIncompatibilite != 0)
 		{
-			for ($b = 1; $b < $nbIncompatibilite ; $b++) 
+			for ($b = 1; $b <= $nbIncompatibilite ; $b++) 
 			{ 
 				$idIncompatible = rand($idPremierEtudiant , $idDernierEtudiant);
 
