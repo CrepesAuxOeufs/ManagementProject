@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+ 
+    <title>Group generation</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+	<link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+	
+	
+    <link href="../dist/css/timeline.css" rel="stylesheet">
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet">
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	
+    <div id="wrapper">
+		<div id="errorHeader" class="panel-heading"></div>
+        <div id="box_loading"><label>Generation en cours ... </label></div>
+        <div id="box_param" style="padding: 20px;">
+			<div class="form-group">
+				<label>Nombre de groupe :</label>
+				<input class="form-control" id="label_nb_groups"><br>
+				<label>Type de génération : </label>
+				<select class="form-control" id="select_generate_type">
+					<option id="basic">basic</option>
+					<option id="complexe">complexe</option>
+				</select><br>
+				<div>
+				<label>Informations de génération :</label><br>
+					<div style="margin-left:30px;">
+						Nombre de personnes : <a id="nbUsers"></a><br>
+						Nombre de groupes : <a id="nbGroups"></a><br>
+						Répartition : <br>
+						<div id="groupes_draw" style="margin-left:60px;"><div>
+					</div>
+				</div>
+				<br>
+			</div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="groups_generate_sumbit">Lancer la génération</button>
+		</div>
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+	<script src="../js/spin.min.js"></script>
+	<script src="../js/groupsGen.js"></script>
+   
+
+    <!-- Custom Theme JavaScript -->
+    <script src="../dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
