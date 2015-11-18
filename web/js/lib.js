@@ -171,7 +171,7 @@ function load_main_page(page){
 		
 		break;
 		case Page.group:
-			$('#contentContainer').load("module/group.html");
+			$('#contentContainer').load("module/listeGroup.html");
 		break;
 		case Page.alreadyRegistred:
 			$('#contentContainer').load("module/AlreadyRegistred.html");
