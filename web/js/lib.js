@@ -140,8 +140,8 @@ function load_main_page(page){
 	
 	update_menu();
 	
-	if(current_page == Page.profil && current_profil != 0)
-		current_page = Page.alreadyRegistred;
+	/*if(current_page == Page.profil && current_profil != 0)
+		current_page = Page.alreadyRegistred;*/
 	
 		
 	

@@ -14,7 +14,7 @@
 	$jsonString = '{
 								"request": "getAllAccount",
 								"raw": ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
-								"userId" : "421"
+								"userId" : "-1"
 							}';
 	$json = json_decode($jsonString,true);
 	*/
