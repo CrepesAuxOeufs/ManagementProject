@@ -5,8 +5,9 @@ var params_allUsers = {
 						};
 						
 						
-
-$.ajax(	{
+$(document).ready(function(){
+	
+	$.ajax(	{
 		type: "POST",
 		url: "../controller/account.php",
 		data: JSON.stringify(params_allUsers),
@@ -27,7 +28,9 @@ $.ajax(	{
 				document.getElementById("select_incompatibility").add(option);
 			}
 		}
-});
+	});
+})
+
 $("#profile_sumbit_incompatibility").click(function() {
 	var table = document.getElementById("profile_tab_incompatibility");
 	if(table.rows.length <= 4){
@@ -84,6 +87,8 @@ $("#profile_sumbit_save").click(function() {
 			data: JSON.stringify(data),
 			dataType: 'json',
 			success: function(msg){
+				current_page = Page.alreadyRegistred;
+				load_main_page(current_page);
 				console.log(msg);
 			}
 	});

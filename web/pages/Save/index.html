@@ -45,10 +45,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	
 </head>
 
 <body>
+	
 
     <div id="wrapper">
 
@@ -97,18 +98,6 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<li id="menu_impression" >
-                            <a href="#"><i class="fa fa-print fa-fw"></i> Impression<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="groupes.html">Groupes</a>
-                                </li>
-                                <li>
-                                    <a href="users.html">Utilisateurs</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
 						
 						
 						
@@ -121,73 +110,10 @@
 	
         <div id="page-wrapper" name="groups">
             <div class="row">
-				
+				<button type="button" class="btn btn-success" id="BTN_print">Imprimer la page</button>
                 <div id="contentContainer" class="col-lg-12">
-                    <h1 class="page-header">Profil utilisateur</h1>
+                    <h1 class="page-header">Mon Groupe</h1>
                 </div>
-				
-				<ul class="nav" id="side-menu">
-					<li>
-						<a href="#"><i class="fa fa-table fa-fw"></i> Belbin<span class="fa arrow"></span></a>
-						<ul class="panel-heading">
-							<div class="form-group">
-								<label>President <input class="form-control" id="profile_belbin_president"></label>
-								<label>Coequipier <input class="form-control" id="profile_belbin_coequipier"></label>
-								<label>Eclaireur <input class="form-control" id="profile_belbin_eclaireur"></label>
-								<label>Faiseur <input class="form-control" id="profile_belbin_faiseur"></label>
-								<label>Organisateur <input class="form-control" id="profile_belbin_organsiateur"></label>
-								<label>Evaluateur <input class="form-control" id="profile_belbin_evaluateur"></label>
-								<label>Creatif <input class="form-control" id="profile_belbin_creatif"></label>
-								<label>Finisseur <input class="form-control" id="profile_belbin_finisseur"></label>
-							</div>
-						</ul>
-						<!-- /.nav-second-level -->
-					</li> 
-					<li>
-						<a href="#"><i class="fa fa-table fa-fw"></i> Compétence<span class="fa arrow"></span></a>
-						<ul class="panel-heading">
-							<div class="form-group">
-								<label>Web <input class="form-control" id="profile_skill_web"></label>
-								<label>BDD <input class="form-control" id="profile_skill_bdd"></label>
-								<label>Programmation <input class="form-control" id="profile_skill_programmation"></label>
-								<label>Metier <input class="form-control" id="profile_skill_metier"></label>
-								<label>Marketing <input class="form-control" id="profile_skill_marketing"></label>
-							</div>
-						</ul>
-						<!-- /.nav-second-level -->
-					</li>
-					<li>
-						<a href="#"><i class="fa fa-table fa-fw"></i> Incompatibilité<span class="fa arrow"></span></a>
-						<ul class="panel-heading">
-							<div class="form-group">
-								<div class="panel-body">
-									<div class="table-responsive table-bordered">
-										<table class="table" id="profile_tab_incompatibility">
-											<thead>
-												<tr>
-													<th>#</th>
-													<th>Nom</th>
-													<th>Prenom</th>
-												</tr>
-											</thead>
-											<tbody>
-											</tbody>
-										</table>
-									</div>
-								</div>
-								<select class="form-control" id="select_incompatibility">
-								</select>
-                                <button type="button" class="btn btn-success" id="profile_sumbit_incompatibility">Ajouter</button>
-							</div>
-						</ul>
-						
-						
-						<button type="button" class="btn btn-success" id="profile_sumbit_save">Sauvegarder</button>
-				
-				
-				
-				
-				
 				<!-- Modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				  <div class="modal-dialog" role="document">
@@ -243,10 +169,9 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-	<script src="../js/profil_utilisateur.js"></script>
+	<script src="../js/login.js"></script>
 	<script src="../js/jspdf.min.js"></script>
 	<script src="../js/pdf.js"></script>
-	<script src="../js/profile.js"></script>
    
 
     <!-- Custom Theme JavaScript -->

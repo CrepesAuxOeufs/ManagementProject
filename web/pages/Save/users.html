@@ -69,7 +69,7 @@
                         <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a id="LogoutSubmit" href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -96,7 +96,7 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						<li id="menu_impression" >
+						<li id="menu_impression" style="display:none;" >
                             <a href="#"><i class="fa fa-print fa-fw"></i> Impression<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -123,8 +123,9 @@
 			
                 <div id="contentContainer" class="col-lg-12">
                     <div class="panel panel-default">
-					<button type="button" class="btn btn-success" id="BTN_print">Imprimer la page</button>
+					
                         <div class="panel-heading">
+						<button type="button" class="btn btn-success" id="BTN_print">Imprimer la page</button>
                             Liste des utilisateurs 
                         </div>
                         <!-- /.panel-heading -->
@@ -178,8 +179,7 @@
                     </div>
                     <!-- /.panel -->
 					
-					<script src="../js/jspdf.min.js"></script>
-					<script src="../js/pdf.js"></script>
+					
                 </div>
 				
             </div>
@@ -198,6 +198,8 @@
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
 	<script src="../js/liste_utilisateurs.js"></script>
+	<script src="../js/jspdf.min.js"></script>
+	<script src="../js/pdf.js"></script>
    
 
     <!-- Custom Theme JavaScript -->
