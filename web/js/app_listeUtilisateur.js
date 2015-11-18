@@ -1,9 +1,9 @@
 function getUsers(){
 	
-	var dataSet = [["1","jean","jean","jean","jean"]];
+	
 	
 	var table = $('#dataTables-example').DataTable( {
-								data:dataSet,
+								
 								lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
 								columns: [
 										{ title: "id" },
@@ -14,7 +14,7 @@ function getUsers(){
 									]
 							} );
 							
-	table.row.add(["1","jean","jean","jean","jean"]).draw();
+	
 	
 	
 	
