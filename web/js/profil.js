@@ -6,7 +6,7 @@ var params_allUsers = {
 						
 						
 $(document).ready(function(){
-	
+	// Remplissage des listes d'incompatibilité
 	$.ajax(	{
 		type: "POST",
 		url: "../controller/account.php",
@@ -26,6 +26,65 @@ $(document).ready(function(){
 				option.profile_nickname = user_nickname;
 				option.profile_id = user_id;
 				document.getElementById("select_incompatibility").add(option);
+			}
+		}
+	});
+	
+	//Remplissage infos profils
+	
+	var params_Info = {
+								request: "getAllAccount",
+								raw: ["id","name","nickname","mail","password"],
+								"userId" : -1
+							};
+	$.ajax(	{
+		type: "POST",
+		url: "../controller/account.php",
+		data: JSON.stringify(params_allUsers),
+		dataType: 'json',
+		success: function(msg){
+			var userInfo = msg.data;
+			console.log(userInfo);
+			/*{"success":true,"code":200,"message":"ok",
+			"data":[{"id":"421","name":"EtudiantName26","nickname":"EtudiantNickname26",
+					"mail":"etudiant26@imerir.com","password":"password26",
+					"belbin":[{"id":"1","value":"4","name":"Organisateur"},
+								{"id":"2","value":"3","name":"President"},
+								{"id":"3","value":"6","name":"Faiseur"},
+								{"id":"4","value":"9","name":"Creatif"},
+								{"id":"5","value":"3","name":"Eclaireur"},
+								{"id":"6","value":"0","name":"Evaluateur"},
+								{"id":"7","value":"1","name":"Coequipier"},
+								{"id":"8","value":"7","name":"Finisseur"}],
+					"skills":[{"id":"1","value":"1","name":"Web"},
+						{"id":"2","value":"3","name":"BDD"},
+						{"id":"3","value":"2","name":"Programmation"},
+						{"id":"4","value":"2","name":"Metier"},
+						{"id":"5","value":"6","name":"Marketing"}],
+					"uncompatibility":[{"id":"400"},{"id":"410"},{"id":"455"}]}]} */
+					
+			document.getElementById("profile_belbin_president").value 	= userInfo.belbin[0].value;
+			document.getElementById("profile_belbin_coequipier").value 	= userInfo.belbin[1].value;
+			document.getElementById("profile_belbin_eclaireur").value 	= userInfo.belbin[2].value;
+			document.getElementById("profile_belbin_faiseur").value 	= userInfo.belbin[3].value;
+			document.getElementById("profile_belbin_organsiateur").value = userInfo.belbin[4].value;
+			document.getElementById("profile_belbin_evaluateur").value 	= userInfo.belbin[5].value;
+			document.getElementById("profile_belbin_creatif").value 	= userInfo.belbin[6].value;
+			document.getElementById("profile_belbin_finisseur").value 	= userInfo.belbin[7].value;
+			
+			document.getElementById("profile_skill_web").value 			= userInfo.skills[0].value;
+			document.getElementById("profile_skill_bdd").value 			= userInfo.skills[1].value;
+			document.getElementById("profile_skill_programmation").value = userInfo.skills[2].value;
+			document.getElementById("profile_skill_metier").value 		= userInfo.skills[3].value;
+			document.getElementById("profile_skill_marketing").value 	= userInfo.skills[4].value;
+			
+			
+			var table = document.getElementById("profile_tab_incompatibility");
+			for(uncompatibility in userInfo.uncompatibility){
+				var row = table.insertRow();
+				var cell0 = row.insertCell(0); cell0.innerHTML = uncompatibility[0].id;
+				//var cell1 = row.insertCell(1); cell1.innerHTML = selected.profile_name;
+				//var cell2 = row.insertCell(2); cell2.innerHTML = selected.profile_nickname;
 			}
 		}
 	});
