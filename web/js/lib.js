@@ -168,16 +168,17 @@ function load_main_page(page){
 
 function displayAccountPage(){
 		if(current_user == AccountType.classic)
-			current_page = Page.Profile;
+			current_page = Page.profile;
 		else if(current_user == AccountType.admin)
 			current_page = Page.admin;
 		
 		console.log(current_user);
-		update_navbar();
+		console.log(current_page);
+		update_menu();
 		load_main_page(current_page);
 }
 
-function update_navbar(){
+function update_menu(){
 	if(current_user == AccountType.classic){
 		display_navbar(true);
 		display_sidebar(true);
