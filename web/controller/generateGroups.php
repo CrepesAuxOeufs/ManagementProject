@@ -5,6 +5,7 @@
 	connectBDD();
 
 	/* for test */
+	/*
     $json = '{
     			"request":"generateGroups",
     			"data":{
@@ -12,24 +13,47 @@
     					}
     		}';
 
-	$parsed_json = json_decode($json);
-	$nbGroup = $parsed_json -> {'data'} -> {'nbGroup'};
-
-	echo "json : " . $json . "<br>";
-	echo "nbGroup : " . $nbGroup . "<br>";
-
+	$parsed_json = json_decode($json);*/
 	
+	$json = json_decode(file_get_contents("php://input"),true);
+	$request = $json["request"];
+	if($request !=  "generateGroups"){
+		$response = getJSONFromCodeError(202);
+		echo json_encode($response);
+		return;
+	}
+	
+	$nbGroup = $json["data"]["nbGroup"];
+	
+	// Preparation
 	$userIdList = getIdUserList();
 	$usersCaracterisitcs = getUserCaracteristics($userIdList);
-	
 	$data = array(); 
 	$data["nbGroup"] = $nbGroup;
 	$data["users"] = $usersCaracterisitcs;
 	$response = getJSONFromCodeError(200);
 	$response["data"] = $data;
+	$file = 'generator/data.json';
+	$current = file_get_contents($file);
+	$current = json_encode($data);
+	file_put_contents($file, $current);
 	
+	// Generation + sauvegarde
+	$data = exec("py ./generator/basic_generator.py");
+	saveGroup(json_decode($data, true));
+	// Reponse
+	$response = getJSONFromCodeError(200);
 	echo json_encode($response);
 	
+function saveGroup($data){
+	foreach ($data["groups"] as $group){
+		mysql_query("INSERT INTO `GROUP`(`project_id`, `name`, `score`) VALUES ('". 1 ."','". $group["name"] ."', '". $group["score"] ."')");
+	}
+	foreach ($data["users"] as $user){
+		mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) VALUES ('". $user["id"] ."','". $user["group_id"] ."')");
+	}
+}
+
 
 function getIdUserList()
 {		
