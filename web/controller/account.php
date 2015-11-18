@@ -14,10 +14,10 @@
 	$jsonString = '{
 								"request": "getAllAccount",
 								"raw": ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
-								"userId" : "383"
-							}';*/
-	//$json = json_decode($jsonString,true);
-	
+								"userId" : "421"
+							}';
+	$json = json_decode($jsonString,true);
+	*/
 	
 	
 	$json = json_decode(file_get_contents("php://input"),true);
@@ -64,7 +64,10 @@
 		$raw = substr($raw,0,-1);
 			
 		if($userId != null)
-			$result = mysql_query("SELECT ". $raw ." FROM USER WHERE USER.id = '". $userId . "' AND admin = 0");
+			if($userId == -1 && getSessionID() != null)
+				$result = mysql_query("SELECT ". $raw ." FROM USER WHERE USER.id = '". getSessionID() . "' AND admin = 0");
+			else
+				$result = mysql_query("SELECT ". $raw ." FROM USER WHERE USER.id = '". $userId . "' AND admin = 0");
 		else
 			$result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0");
 			
