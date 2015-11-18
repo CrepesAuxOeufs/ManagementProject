@@ -1,5 +1,23 @@
 function getUsers(){
 	
+	var dataSet = [["1","jean","jean","jean","jean"]];
+	
+	var table = $('#dataTables-example').DataTable( {
+								data:dataSet,
+								lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+								columns: [
+										{ title: "id" },
+										{ title: "name" },
+										{ title: "nickname" },
+										{ title: "mail" },
+										{ title: "password" }
+									]
+							} );
+							
+	table.row.add(["1","jean","jean","jean","jean"]).draw();
+	
+	
+	
 	var params_allUsers = {
 								request: "getAllAccount",
 								raw: ["id","name","nickname","mail","password"]
@@ -13,7 +31,7 @@ function getUsers(){
 			success: function(msg){
 				console.log("liste_userConnection");
 				
-			GenAllUserPage(msg.data);
+			updateData(msg.data);
 			}
 	});
 	
@@ -53,7 +71,7 @@ function GenAllUserPage(userobject){
 	for (user in userobject){
 		
 		
-		console.log(userobject[user]);
+		
 		
 		$('<tr>').append(
 			$('<td>').text(userobject[user]["id"]),
@@ -75,18 +93,35 @@ function GenAllUserPage(userobject){
 		$('#user_data').append(tr);*/
 		
 		
-    
+		
 		
 		
 	}
 	
 	
-	$('body').append('<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>');
-	$('body').append('<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>');
-	$('body').append("<script>$(document).ready(function() {$('#dataTables-example').DataTable({responsive: true});});</script>");
+	//$('body').append('<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>');
+	//$('body').append('<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>');
+	//$('body').append("<script>$(document).ready(function() {$('#dataTables-example').DataTable({responsive: true});});</script>");
+}
+
+function updateData(userobject){
+	
+	var table = $('#dataTables-example').DataTable();
+	
+	table.clear();
+	for (user in userobject){
+		table.row.add([userobject[user]["id"],
+				userobject[user]["name"],
+				userobject[user]["nickname"],
+				userobject[user]["mail"],
+				userobject[user]["password"]]
+		);
+	}
+	
+	table.draw();
 	
 	
-		
+	
 	
 	
 	
