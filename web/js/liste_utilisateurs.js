@@ -15,6 +15,22 @@ if(loadUserListe) {$('#contentContainer').load("module/listeUser.html");}
 $( document ).ready( getSession );
 
 
+
+
+$("#LogoutSubmit").click(function() {
+	$.ajax(	{
+			type: "GET",
+			url: "../controller/logout.php",
+			success: function(msg){
+				console.log(msg);
+				console.log("LOG OUT");
+				window.location.replace("index.html");
+			}
+	});
+});
+
+
+
 function getUsers(){
 	
 	var params_allUsers = {
@@ -113,15 +129,13 @@ function getSession (){
 			success: function(msg){
 				
 				if(msg.data["admin"] == null )		$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
-				
-				
-				if(msg.data["admin"] == 1){
+				else if(msg.data["admin"] == 1){
 					console.log("show");
 					$("#menu_admin").show();
 					getUsers();
 				}
 				
-				if(msg.data["admin"] == 0){
+				else if(msg.data["admin"] == 0){
 					window.location.replace("profil_utilisateur.html");
 					
 				}
