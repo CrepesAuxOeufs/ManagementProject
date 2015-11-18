@@ -1,8 +1,8 @@
 var AccountType = { unconnected:0,admin:1,classic:2};
 var Page = {none:0, login:1, profile:2, admin:3};
 
-var current_user = AccountType.unconnected;
-var current_page = Page.login;
+current_user = AccountType.unconnected;
+current_page = Page.login;
 
 function updateSession (){
 	$.ajax(	{
@@ -40,7 +40,7 @@ function updateSession (){
 				else
 					current_user = AccountType.admin;
 				
-				udpdate_acount();
+				displayAccountPage();
 				
 				console.log(current_user);
 				
@@ -152,8 +152,15 @@ function load_main_page(page){
 		break;
 		
 		case Page.profile:
+		$('#contentContainer').load("module/profil.html");
 		
 		break;
+		
+		case Page.admin:
+		$('#contentContainer').load("module/user.html");
+		
+		break;
+		
 		
 	}
 }
@@ -165,8 +172,24 @@ function displayAccountPage(){
 		else if(current_user == AccountType.admin)
 			current_page = Page.admin;
 		
+		console.log(current_user);
+		update_navbar();
 		load_main_page(current_page);
 }
+
+function update_navbar(){
+	if(current_user == AccountType.classic){
+		display_navbar(true);
+		display_sidebar(true);
+		display_menuAdmin(false);
+	}
+	else if(current_user == AccountType.admin){
+		display_navbar(true);
+		display_sidebar(true);
+		display_menuAdmin(true);
+	}
+}
+
 
 
 
@@ -185,5 +208,15 @@ function display_sidebar(display){
 	else
 		$("#sidebar").hide();
 }
+function display_menuAdmin(display){
+	
+	if (display == true){
+		$("#menu_admin").show();
+	}
+	else
+		$("#menu_admin").hide();
+}
+
+
 
 
