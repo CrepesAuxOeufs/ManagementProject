@@ -18,6 +18,7 @@
 	echo "json : " . $json . "<br>";
 	echo "nbGroup : " . $nbGroup . "<br>";
 
+	
 	$userIdList = getIdUserList();
 	$usersCaracterisitcs = getUserCaracteristics($userIdList);
 	
@@ -32,7 +33,7 @@
 
 function getIdUserList()
 {		
-    $result = mysql_query("SELECT id FROM `USER`");
+    $result = mysql_query("SELECT id FROM USER WHERE admin = 0");
 
 	$users = array();
 
