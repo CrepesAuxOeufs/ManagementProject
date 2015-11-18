@@ -1,5 +1,5 @@
 var AccountType = { unconnected:0,admin:1,classic:2};
-var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4};
+var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4,alreadyRegistred:5};
 
 current_user = AccountType.unconnected;
 current_page = Page.login;
@@ -163,8 +163,10 @@ function load_main_page(page){
 		
 		break;
 		case Page.group:
-		$('#contentContainer').load("module/group.html");
-		
+			$('#contentContainer').load("module/group.html");
+		break;
+		case Page.alreadyRegistred:
+			$('#contentContainer').load("module/AlreadyRegistred.html");
 		break;
 		
 		
