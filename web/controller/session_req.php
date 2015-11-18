@@ -15,6 +15,7 @@
 	$dataResponse['mail'] = $_SESSION['mail'];
 	$dataResponse['connect'] = $_SESSION['connect'];
 	$dataResponse['admin'] = $_SESSION['admin'];
+	$dataResponse['profil'] = $_SESSION['profil'];
 	
 	$response = array(
 			"success" => true, 

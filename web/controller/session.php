@@ -7,13 +7,14 @@
 	error_reporting(0);
 	session_start(); 
 		
-	function createSession($id,$name,$nickName,$mail,$admin){
+	function createSession($id,$name,$nickName,$mail,$admin,$profil){
 		$_SESSION['id'] = $id;
 		$_SESSION['name'] = $name;
 		$_SESSION['nickname'] = $nickName;
 		$_SESSION['mail'] = $mail;
 		$_SESSION['connect'] = true;
 		$_SESSION['admin'] = $admin;
+		$_SESSION['profil'] = $profil;
 	}
 	
 	function destroySession(){
@@ -39,5 +40,8 @@
 	}
 	function getSessionMail(){
 		return $_SESSION['mail'];
+	}
+	function getSessionProfile(){
+		return $_SESSION['profil'];
 	}
 ?>
