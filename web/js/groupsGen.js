@@ -88,7 +88,7 @@ $("#groups_generate_sumbit").click(function() {
 			success: function(msg){
 				document.getElementById("box_loading").style.display = 'none';
 				console.log(msg);
-				window.location.replace("index.html");
+				//window.location.replace("index.html");
 				errorHeaderAddMessage("Groupe généré avec succés", "success");
 			}
 	});
