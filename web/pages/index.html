@@ -83,22 +83,22 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Home</a>
+                            <a href="#" class="active"><i class="fa fa-home fa-fw"></i> Home</a>
                         </li>
 						<li id="menu_admin" style="display:none;">
                             <a href="#" ><i class="fa fa-table fa-fw"></i> Administration<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a  onClick="load_main_page(Page.group);" >Groupes</a>
+                                    <a  href="#" onClick="load_main_page(Page.group);" >Groupes</a>
                                 </li>
                                 <li>
-                                    <a  onClick="load_main_page(Page.user);" >Utilisateurs</a>
+                                    <a  href="#" onClick="load_main_page(Page.user);" >Utilisateurs</a>
                                 </li>
 								<li>
-									<a  onClick="load_main_page(Page.groupeGen);" >Génération des groupes</a>
+									<a  href="#" onClick="load_main_page(Page.groupeGen);" >Génération des groupes</a>
 								</li>
 								<li>
-									<a  onClick="load_main_page(Page.regles);" >Règles de génération des groupes</a>
+									<a  href="#" onClick="load_main_page(Page.regles);" >Règles de génération des groupes</a>
 								</li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -140,6 +140,8 @@
 	
 	<script src="../js/jspdf.min.js"></script>
 	<script src="../js/pdf.js"></script>
+	
+	<script src="../bower_components/raphael/raphael-min.js"></script>
    
 
     <!-- Custom Theme JavaScript -->
