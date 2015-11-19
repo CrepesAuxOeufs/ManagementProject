@@ -14,7 +14,8 @@
 			302  => "User already disconnected",
 			303  => "User already connected",
 			304  => "You must be loggin",
-			305  => "You have already save your profil"
+			305  => "You have already save your profil",
+			600  => "Cant generate a vaild solution"
 		);
 	
 		if($code == 200)
