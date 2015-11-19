@@ -6,7 +6,7 @@
 	connectBDD();
 
 	$json = json_decode(file_get_contents("php://input"),true);
-
+	
 	$request = $json["request"];
 	$dataResponse = null;
 	
@@ -120,10 +120,8 @@
 				}
 			}
 			
-			foreach($groupArray as &$group){
-				$group["scoreBelbin"] = round( ($group["scoreBelbin"] / 8) * 100 ) /100;
-				$group["scoreSkill"] = round( ($group["scoreSkill"] / 5) * 100 ) /100;
-			}
+			$group["scoreBelbin"] = round( ($group["scoreBelbin"] / 8) * 100 ) /100;
+			$group["scoreSkill"] = round( ($group["scoreSkill"] / 5) * 100 ) /100;
         }
         return $groupArray;
     }
