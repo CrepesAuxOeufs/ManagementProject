@@ -90,8 +90,14 @@ $("#groups_generate_sumbit").click(function() {
 				success: function(msg){
 					document.getElementById("box_loading").style.display = 'none';
 					console.log(msg);
-					window.location.replace("index.html");
-					errorHeaderAddMessage("Groupe généré avec succés", "success");
+					if(msg.success){
+						window.location.replace("index.html");
+						errorHeaderAddMessage("Groupe généré avec succés", "success");
+					}
+					else{
+						document.getElementById("box_param").style.display = 'block';
+						errorHeaderAddMessage(msg.message, "warning");
+					}
 				}
 		});
 	}
