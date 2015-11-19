@@ -74,13 +74,13 @@
 		<div class="panel-body">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" id="tab_nav_regle">
-				<li class="active"><a href="#basic_1" data-toggle="tab">Récupération des élèves</a>
+				<li class="active"><a href="#basic_1" data-toggle="tab">Récupérations</a>
 				</li>
-				<li><a href="#basic_2" data-toggle="tab">Listage des élèves</a>
+				<li><a href="#basic_2" data-toggle="tab">Listes</a>
 				</li>
-				<li><a href="#basic_3" data-toggle="tab">Génération de groupe</a>
+				<li><a href="#basic_3" data-toggle="tab">Groupes</a>
 				</li>
-				<li><a href="#basic_4" data-toggle="tab">Ajout des derniers élèves</a>
+				<li><a href="#basic_4" data-toggle="tab">Incompatibilités</a>
 				</li>
 				<li><a href="#basic_5" data-toggle="tab">Scoring</a>
 				</li>
@@ -91,19 +91,15 @@
 				<div class="tab-pane fade in active" id="basic_1">
 					<h4>Étape 1: </h4>
 					<p>
-						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations belbin ainsi que leurs incompatibilités s’il y a.
+						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations Belbin ainsi que leurs incompatibilités s’il y en a.
 						<img src="../images/Etape1.png">
 					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_2">
 					<h4>Étape 2: </h4>
 					<p>
-						On commence par créer un nombre de listes égales au nombre de compétences et des différents profils belbin.
-					</p>
-					<p>
-						Ensuite on ajoute tous les élèves dans chaque liste, puis on les classe par niveau, par ordre décroissant (du plus fort au plus faible).
-					</p>
-					<p>
+						On créer autant de liste que de domaine (compétences, évaluations).<br>
+						Ensuite on ajoute tous les élèves dans chaque liste, puis on les classe par niveau, par ordre décroissant (du plus fort au plus faible).<br>
 						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier à avoir été enregistré puis le second.
 					</p>
 					<img src="../images/Etape2.png">
@@ -111,20 +107,30 @@
 				<div class="tab-pane fade" id="basic_3">
 					<h4>Étape 3: </h4>
 					<p>
-						On poursuit par la création des groupes en prenant le meilleur d’un domaine et en le mettant dans le premier groupe, puis le deuxième élève ayant le plus haut niveau dans le second groupe, ainsi de suite jusqu’à que les groupes soient totalement remplis 
-					</p>
-					<p>
-						Il y a un ordre, nous commençons par les compétences techniques suivis par les niveaux belbin.
+						On créer les groupes en mettant le meilleur de chaque liste dans chaque groupe.<br>
+						On commence d'abord par la liste "web", on remplit chaque groupe avant de passer à une deuxième liste.
 					</p>
 					<img src="../images/Etape3.png">
+					<p>
+						On vérifie au préalabre s'il y a des incompatibilités. <br>
+						Si oui : On ne mets pas l'élève dans le groupe, mais on prend le prochain sur la liste s'il est compatible. <br>
+						Si nous avons une incompatibilité dans tous les groupes, nous le plaçons dans le premier groupe possible suivant la liste dans laquelle nous nous trouvons.
+					</p>
+					<img src="../images/Etape3-2.png">
 				</div>
 				<div class="tab-pane fade" id="basic_4">
 					<h4>Étape 4: </h4>
+					<p>
+						Une fois tout les groupes formés, nous vérifions toutes les incompatibilités et nous les ajoutons dans une liste.<br>
+						Nous essayons d'échanger les deux élèves pour voir si les incompatibilités disparaissent.
+					</p>
+					<img src="../images/Etape4.png">
 					
 				</div>
 				<div class="tab-pane fade" id="basic_5">
 					<h4>Étape 5: </h4>
-					
+					<p>
+					</p>
 				</div>
 			</div>
 		</div>
