@@ -73,6 +73,7 @@ $("#groups_generate_sumbit").click(function() {
 		return;
 	}
 	
+
 	console.log(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML);
 	if(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML != "solveur"){
 		document.getElementById("box_loading").style.display = 'block';
@@ -106,6 +107,7 @@ $("#groups_generate_sumbit").click(function() {
 		errorHeaderAddMessage("Téléchargement du tableur pour le solveur en cours, redirection ...", "success");
 		setInterval(function()	{window.location.replace("index.html");},3000);
 	}
+
 	
 });
 
