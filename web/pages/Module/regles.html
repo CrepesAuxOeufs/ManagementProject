@@ -63,39 +63,41 @@
 					<h4>Étape 1: </h4>
 					<p>
 						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations Belbin ainsi que leurs incompatibilités s’il y en a.
-						<img src="../images/Etape1.png" style="max-height: 200px; max-width: 800px;">
+						<img src="images/Etape1.png" style="max-height: 200px; max-width: 800px;">
 					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_2" >
 					<h4>Étape 2: </h4>
 					<p>
 						On créer autant de liste que de domaine (compétences, évaluations).<br>
-						Ensuite on ajoute tous les élèves dans chaque liste, puis on les classe par niveau, par ordre décroissant (du plus fort au plus faible).<br>
+						Ensuite on ajoute tous les élèves (plus leur score associé) dans chaque liste, puis on les tri par ordre décroissant (du score le plus élevé au plus faible).<br>
 						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier a avoir été enregistré puis le second.
 					</p>
-					<img src="../images/Etape2.png" style="max-height: 200px; max-width: 800px;">
+					<img src="images/Etape2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
 				<div class="tab-pane fade" id="basic_3" >
 					<h4>Étape 3: </h4>
 					<p>
-						On créer les groupes en mettant le meilleur de chaque liste dans chaque groupe.<br>
-						On commence d'abord par la liste "web", on remplit chaque groupe avant de passer à une deuxième liste.
+						On créer autant de liste (groupe) qui est demandé.<br>
+						On récupére autant de personnes qu'il y a de groupe provenant d'une liste compétence, afin d'insérer chaque membre récupérer dans une liste groupe.<br>
+						On répete l'opération sur l'enssemble des listes compétences et autant qu'il reste de personne à placer.<br>
 					</p>
-					<img src="../images/Etape3.png" style="max-height: 200px; max-width: 800px;">
+					<img src="images/Etape3.png" style="max-height: 200px; max-width: 800px;">
 					<p>
-						On vérifie au préalabre s'il y a des incompatibilités. <br>
-						Si oui : On ne mets pas l'élève dans le groupe, mais on prend le prochain sur la liste s'il est compatible. <br>
-						Si nous avons une incompatibilité dans tous les groupes, nous le plaçons dans le premier groupe possible suivant la liste dans laquelle nous nous trouvons.
+						Durant les opérations de placement des personnes, on vérifie que chaque personnes déplacé peut être placé dans la liste groupe qui lui est défini tout en prenant en compte ces incompatibilitées. <br>
+						Dans le cas où la personne ne peut être placé dans la liste groupe selectionné, cette personne céde sa place à la personne suivante dans la liste compétence.<br>
+						Si nous avons une incompatibilité récurente pour l'enssemble des listes groupe, nous le plaçons temporairement dans le groupe actuellement sélectionné.
 					</p>
-					<img src="../images/Etape3-2.png" style="max-height: 200px; max-width: 800px;">
+					<img src="images/Etape3-2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
 				<div class="tab-pane fade" id="basic_4">
 					<h4>Étape 4: </h4>
 					<p>
-						Une fois tout les groupes formés, nous vérifions toutes les incompatibilités et nous les ajoutons dans une liste.<br>
-						Nous essayons d'échanger les deux élèves pour voir si les incompatibilités disparaissent.
+						Une fois tout les groupes formés, nous vérifions une derniére fois toutes les incompatibilités de toute les personnes présente dans tout les groupes.
+						Si une incompatibilité est décelé, la personnes en question est ajouté dans une liste de personnes incompatible.<br>
+						Nous essayons d'interchangé les groupes des personnes incompatible, jusqu'a trouvé une solution. <br>
 					</p>
-					<img src="../images/Etape4.png" style="max-height: 200px; max-width: 800px;">
+					<img src="images/Etape4.png" style="max-height: 200px; max-width: 800px;">
 					
 				</div>
 				<div class="tab-pane fade" id="basic_5">
