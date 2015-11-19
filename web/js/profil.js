@@ -6,7 +6,7 @@ var params_allUsers = {
 						
 						
 $(document).ready(function(){
-	// Remplissage des listes d'incompatibilité
+	// Remplissage des listes d'incompatibilitÃ©
 	$.ajax(	{
 		type: "POST",
 		url: "../controller/account.php",
@@ -34,17 +34,21 @@ $(document).ready(function(){
 	
 	var params_Info = {
 								request: "getAllAccount",
-								raw: ["id","name","nickname","mail","password"],
+								raw: ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
 								"userId" : -1
 							};
+								/*
+								"request": "getAllAccount",
+								"raw": ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
+								"userId" : "-1"
+								*/
 	$.ajax(	{
 		type: "POST",
 		url: "../controller/account.php",
-		data: JSON.stringify(params_allUsers),
+		data: JSON.stringify(params_Info),
 		dataType: 'json',
 		success: function(msg){
-			var userInfo = msg.data;
-			console.log(userInfo);
+			var userInfo = msg.data[0];
 			/*{"success":true,"code":200,"message":"ok",
 			"data":[{"id":"421","name":"EtudiantName26","nickname":"EtudiantNickname26",
 					"mail":"etudiant26@imerir.com","password":"password26",
@@ -62,7 +66,7 @@ $(document).ready(function(){
 						{"id":"4","value":"2","name":"Metier"},
 						{"id":"5","value":"6","name":"Marketing"}],
 					"uncompatibility":[{"id":"400"},{"id":"410"},{"id":"455"}]}]} */
-					
+			console.log(userInfo.belbin);
 			document.getElementById("profile_belbin_president").value 	= userInfo.belbin[0].value;
 			document.getElementById("profile_belbin_coequipier").value 	= userInfo.belbin[1].value;
 			document.getElementById("profile_belbin_eclaireur").value 	= userInfo.belbin[2].value;

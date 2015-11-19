@@ -1,8 +1,19 @@
 var AccountType = { unconnected:0,admin:1,classic:2};
-var Page = {none:0, login:1, profile:2, admin:3,user:3,group:4,alreadyRegistred:5,groupeGen:6,regles:7};
+var Page = {
+			none:				"blank",
+			login:				"login",
+			profil:				"profil",
+			admin:				"user",
+			user:				"user",
+			group:				"listeGroup",
+			alreadyRegistred:	"AlreadyRegistred",
+			groupeGen:			"groupsGen",
+			regles:				"regles"
+			};
+			
 
 current_user = AccountType.unconnected;
-current_page = Page.login;
+current_page = Page.none;
 
 current_profil = 0;
 
@@ -13,27 +24,7 @@ function updateSession (){
 			dataType: 'json',
 			success: function(msg){
 				
-				/*if(msg.data["admin"] == null )		$('#myModal').modal({backdrop:'static',keyboard:false, show:true});
 				
-				
-				if(msg.data["admin"] == 1){
-					console.log("show");
-					$("#menu_admin").show();
-					//window.location.replace("users.html");
-				}
-				
-				if(msg.data["admin"] == 0){
-					//window.location.replace("profil_utilisateur.html");
-					
-				}
-				
-
-				if(AutoHide) 		{setInterval(function(){ $('#myModal').modal('hide');},2000);}
-
-				if(loadDashboard) {$('#contentContainer').load("module/dashboardAdmin.html");}
-				if(loadUserListe) {$('#contentContainer').load("module/listegroup.html");}
-				
-				*/
 				
 				if(msg.data["admin"] == null)
 					current_user = AccountType.unconnected;
@@ -147,58 +138,34 @@ function load_main_page(page){
 	if(current_page != page)
 		current_page = page;
 	
-	switch(page){
-		case Page.none:
-			$('#contentContainer').load("module/blank.html");
-		break;
-		case Page.login:
-			
-			$('#contentContainer').load("module/login.html");
-			
-		break;
+	update_menu();
+	
+	/*if(current_page == Page.profil && current_profil != 0)
+		current_page = Page.alreadyRegistred;*/
+	
 		
-		case Page.profile:
-		$('#contentContainer').load("module/profil.html");
-		
-		break;
-		
-		case Page.admin:
-		$('#contentContainer').load("module/user.html");
-		
-		break;
-		case Page.user:
-		$('#contentContainer').load("module/user.html");
-		
-		break;
-		case Page.group:
-			$('#contentContainer').load("module/group.html");
-		break;
-		case Page.alreadyRegistred:
-			$('#contentContainer').load("module/AlreadyRegistred.html");
-			
-		break;
-		case Page.groupeGen:
-			$('#contentContainer').load("module/groupsGen.html");
-		break;
-		
-		case Page.regles:
-			$('#contentContainer').load("module/regles.html");
-		break
+	
+	
+	$('#contentContainer').load("module/"+current_page+".html");
 		
 		
-	}
+	
 }
+
+
 
 
 function displayAccountPage(){
 		if(current_user == AccountType.classic){
 			if(current_profil == 0)
-				current_page = Page.profile;
+				current_page = Page.profil;
 			else
 				current_page = Page.alreadyRegistred;
 		}
 		else if(current_user == AccountType.admin)
-			current_page = Page.admin;
+			current_page = Page.group;
+		else 
+			current_page = Page.login;
 		
 		console.log(current_user);
 		console.log(current_page);

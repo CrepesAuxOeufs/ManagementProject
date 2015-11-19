@@ -45,32 +45,31 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
 </head>
 
 <body>
-	
 
     <div id="wrapper">
+
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Projet Management</a>
+                <a class="navbar-brand" href="index.html">Rondoudou</a>
             </div>
             <!-- /.navbar-header -->
 
-            <ul id="navbar" class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right">
                 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a onClick="load_main_page(Page.profil);"><i class="fa fa-user fa-fw"></i>Profil utilisateur</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li>
-							<a id="LogoutSubmit"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -79,33 +78,25 @@
             </ul>
             <!-- /.navbar-top-links -->
 
-            <div id="sidebar" class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Home</a>
                         </li>
-						<li id="menu_admin" style="display:none;">
-                            <a href="#" ><i class="fa fa-table fa-fw"></i> Administration<span class="fa arrow"></span></a>
+						
+						<li>
+                            <a href="#"><i class="fa fa-table fa-fw"></i> Administration<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a  onClick="load_main_page(Page.group);" >Groupes</a>
+                                    <a href="groupes.html">Groupes</a>
                                 </li>
                                 <li>
-                                    <a  onClick="load_main_page(Page.user);" >Utilisateurs</a>
+                                    <a href="users.html">Utilisateurs</a>
                                 </li>
-								<li>
-									<a  onClick="load_main_page(Page.groupeGen);" >Génération des groupes</a>
-								</li>
-								<li>
-									<a  onClick="load_main_page(Page.regles);" >Règles de génération des groupes</a>
-								</li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-						
-						
-						
 						
                     </ul>
                 </div>
@@ -114,11 +105,10 @@
             <!-- /.navbar-static-side -->
         </nav>
 	
-        <div id="page-wrapper" name="groups">
+        <div id="page-wrapper">
             <div class="row">
-				<!--<button type="button" class="btn btn-success" id="BTN_print">Imprimer la page</button>-->
                 <div id="contentContainer" class="col-lg-12">
-                    <h1 class="page-header">Welcome, the aplication is loading...</h1>
+                    <h1 class="page-header">Mon Groupe</h1>
                 </div>
             </div>
             <!-- /.row -->
@@ -135,13 +125,8 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-	<script src="../js/lib.js"></script>
-	<script src="../js/main.js"></script>
-	
-	<script src="../js/jspdf.min.js"></script>
-	<script src="../js/pdf.js"></script>
+	<script src="../js/liste_groupes.js"></script>
    
-
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
 
