@@ -26,7 +26,7 @@ var spinner = new Spinner(opts).spin(target);
 
 var nbUsers = 0;
 var params_allUsers = {
-							request: "getAllAccount",
+							request: "getAllAccountReady",
 							raw: ["id"]
 						};
 $.ajax(	{
@@ -74,6 +74,7 @@ $("#groups_generate_sumbit").click(function() {
 	}
 	
 
+	console.log(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML);
 	if(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML != "solveur"){
 		document.getElementById("box_loading").style.display = 'block';
 		document.getElementById("box_param").style.display = 'none';
@@ -89,6 +90,7 @@ $("#groups_generate_sumbit").click(function() {
 				dataType: 'json',
 				success: function(msg){
 					document.getElementById("box_loading").style.display = 'none';
+					console.log(msg);
 					if(msg.success){
 						window.location.replace("index.html");
 						errorHeaderAddMessage("Groupe généré avec succés", "success");
