@@ -21,9 +21,62 @@ function getGroups(){
 			console.log(msg);
 			
 			
-			GenAllGroupPage(msg.data);
+			GenALLGroupV2(msg.data);
 		}
 });
+	
+}
+
+
+function GenALLGroupV2(gobject){
+	console.log("GenALLGroupV2 IN");
+	
+	for (group in gobject){
+		
+		
+		
+		
+		var grpbuilder = '<div class="col-lg-4 col-md-4" style="padding-top:5px;"> \
+							<div class="panel panel-primary">\
+								<div class="panel-heading">\
+									<div class="row">';
+										
+										
+								
+		
+		
+		
+		
+		
+		var group_users = gobject[group].users;
+		
+		for (user in group_users){
+			
+			grpbuilder += '<div class="col-xs-6" style="text-align:center;" >'+group_users[user]["nickname"]+' '+group_users[user]["name"]+'</div>'
+			
+			
+			 
+		
+		}
+		
+		
+		grpbuilder+= '				</div>\
+								</div>\
+								<a href="#">\
+									<div class="panel-footer">\
+										<span class="pull-left">Score : '+gobject[group].scoreGlobal+', belbin '+gobject[group].scoreBelbin+', Skill '+gobject[group].scoreSkill+'. En savoir plus</span>\
+										<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>\
+										<div class="clearfix"></div>\
+									</div>\
+								</a>\
+							</div>';
+		
+		
+		$("#grpcontainer").append(grpbuilder);
+		
+	}
+	
+	console.log("GenALLGroupV2 OUT");
 	
 }
 
