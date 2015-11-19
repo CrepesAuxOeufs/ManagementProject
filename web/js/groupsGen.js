@@ -62,6 +62,7 @@ $('#label_nb_groups').on('input', function() {
 
 
 
+
 $("#groups_generate_sumbit").click(function() {
 	if(document.getElementById("label_nb_groups").value == ""){
 		errorHeaderAddMessage("Nombre de groupe non valide", "warning");
@@ -72,26 +73,35 @@ $("#groups_generate_sumbit").click(function() {
 		return;
 	}
 	
-	document.getElementById("box_loading").style.display = 'block';
-	document.getElementById("box_param").style.display = 'none';
-	
-	var params_allGroups = {
-								request: "generateGroups",
-								data: {nbGroup : document.getElementById("label_nb_groups").value, type : document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML}
-							};
-	
-	$.ajax(	{
-			type: "POST",
-			url: "../controller/generateGroups.php",
-			data: JSON.stringify(params_allGroups),
-			dataType: 'json',
-			success: function(msg){
-				document.getElementById("box_loading").style.display = 'none';
-				console.log(msg);
-				//window.location.replace("index.html");
-				errorHeaderAddMessage("Groupe généré avec succés", "success");
-			}
-	});
+
+	console.log(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML);
+	if(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML != "solveur"){
+		document.getElementById("box_loading").style.display = 'block';
+		document.getElementById("box_param").style.display = 'none';
+		var params_allGroups = {
+									request: "generateGroups",
+									data: {nbGroup : document.getElementById("label_nb_groups").value, type : document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML}
+								};
+		
+		$.ajax(	{
+				type: "POST",
+				url: "../controller/generateGroups.php",
+				data: JSON.stringify(params_allGroups),
+				dataType: 'json',
+				success: function(msg){
+					document.getElementById("box_loading").style.display = 'none';
+					console.log(msg);
+					window.location.replace("index.html");
+					errorHeaderAddMessage("Groupe généré avec succés", "success");
+				}
+		});
+	}
+	else{
+		window.location.href='../controller/exportcsv.php';
+		errorHeaderAddMessage("Téléchargement du tableur pour le solveur en cours, redirection ...", "success");
+		setInterval(function()	{window.location.replace("index.html");},3000);
+	}
+
 	
 });
 

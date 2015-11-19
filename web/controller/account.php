@@ -122,15 +122,19 @@
 			//UNCOMPATIBILITY
 			if($uncompatibility){
 				$uncompatibilities = array();
-				$resultUncompatibility = mysql_query( "SELECT USER.id,USER.name,USER.nickname, USER_UNCOMPATIBILITY.user_id_uncompatibility
-											FROM `USER`
-											INNER JOIN `USER_UNCOMPATIBILITY` ON USER.id =USER_UNCOMPATIBILITY.user_id
-											WHERE USER.id = '". $userInfo["id"] . "'");
+				$resultUncompatibility = mysql_query( "SELECT USER_UNCOMPATIBILITY.user_id_uncompatibility,USERU.name,USERU.nickname
+														FROM `USER`
+														INNER JOIN `USER_UNCOMPATIBILITY` ON USER.id =USER_UNCOMPATIBILITY.user_id
+														INNER JOIN `USER` as USERU ON USER_UNCOMPATIBILITY.user_id_uncompatibility =USERU.id
+
+														WHERE USER.id = '". $userInfo["id"] . "'");
 
 				while($rowUncompatibility = mysql_fetch_assoc($resultUncompatibility))
 				{
 					$uncompatibility = array();
 					$uncompatibility["id"] = $rowUncompatibility["user_id_uncompatibility"];
+					$uncompatibility["name"] = $rowUncompatibility["name"];
+					$uncompatibility["nickname"] = $rowUncompatibility["nickname"];
 					array_push($uncompatibilities, $uncompatibility);
 				}
 				$userInfo["uncompatibility"] = $uncompatibilities;

@@ -46,6 +46,9 @@
 	echo json_encode($response);
 	
 function saveGroup($data){
+	mysql_query("DELETE FROM `GROUP`");
+	mysql_query("DELETE FROM `USER_GROUP`");
+	
 	foreach ($data["groups"] as $group){
 		mysql_query("INSERT INTO `GROUP`(`id`,`project_id`, `name`, `score`) VALUES ('". $group["id"] ."','". 1 ."','". $group["name"] ."', '". $group["score"] ."')");
 	}
