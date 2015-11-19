@@ -82,11 +82,32 @@
 
 	for ($a = $idPremierEtudiant ; $a <= $idDernierEtudiant ; $a++)
 	{
-		$nbIncompatibilite = rand (0,4);
+
+		$nbIncomPourcentage = rand(0,100);
+
+		switch ($nbIncomPourcentage) 
+		{
+			case ($nbIncomPourcentage <= 40):
+				$nbIncompatibilite = 0;
+				break;
+			case ($nbIncomPourcentage > 40) && ($nbIncomPourcentage <= 70):
+				$nbIncompatibilite = 1;
+				break;
+			case ($nbIncomPourcentage > 70) && ($nbIncomPourcentage <= 85):
+				$nbIncompatibilite = 2;
+				break;
+			case ($nbIncomPourcentage > 85) && ($nbIncomPourcentage <= 95):
+				$nbIncompatibilite = 3;
+				break;
+			case ($nbIncomPourcentage > 95) && ($nbIncomPourcentage <= 100):
+				$nbIncompatibilite = 4;
+				break;
+		}
 
 		$Incomp1 = 0;
 		$Incomp2 = 0;
 		$Incomp3 = 0;
+
 
 		if ($nbIncompatibilite != 0)
 		{
