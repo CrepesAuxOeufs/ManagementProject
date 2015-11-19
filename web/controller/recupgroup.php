@@ -82,7 +82,7 @@
 				$skill["id"] = $rowSkill["skill_id"];
 				$skill["value"] = $rowSkill["skill_value"];
 				$skill["name"] = $rowSkill["skill_name"];
-				$skillScore += $rowSkill["skill_value"];
+				$skillScore += $rowSkill["skill_value"] * 4;
 				array_push($skills, $skill);
 			}			
 				
@@ -120,9 +120,13 @@
 				}
 			}
 			
-			$group["scoreBelbin"] = round( ($group["scoreBelbin"] / 8) * 100 ) /100;
-			$group["scoreSkill"] = round( ($group["scoreSkill"] / 5) * 100 ) /100;
         }
+		
+		foreach($groupArray as &$group){
+			$group["scoreBelbin"] = round( ($group["scoreBelbin"] / count($group["users"])) * 100 ) /100;
+			$group["scoreSkill"] = round( ($group["scoreSkill"] / count($group["users"])) * 100 ) /100;
+		}
+		
         return $groupArray;
     }
 
