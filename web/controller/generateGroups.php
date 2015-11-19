@@ -47,10 +47,10 @@
 	
 function saveGroup($data){
 	foreach ($data["groups"] as $group){
-		mysql_query("INSERT INTO `GROUP`(`project_id`, `name`, `score`) VALUES ('". 1 ."','". $group["name"] ."', '". $group["score"] ."')");
+		mysql_query("INSERT INTO `GROUP`(`id`,`project_id`, `name`, `score`) VALUES ('". $group["id"] ."','". 1 ."','". $group["name"] ."', '". $group["score"] ."')");
 	}
 	foreach ($data["users"] as $user){
-		mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) VALUES ('". $user["id"] ."','". $user["group_id"] ."')");
+		mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) VALUES ('". $user["id"] ."','". $user["groupId"] ."')");
 	}
 }
 
