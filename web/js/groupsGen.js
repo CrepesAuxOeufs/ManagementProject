@@ -103,7 +103,7 @@ $("#groups_generate_sumbit").click(function() {
 		});
 	}
 	else{
-		window.location.href='../controller/exportcsv.php';
+		window.location.href='../controller/ExportCSV.php';
 		errorHeaderAddMessage("Téléchargement du tableur pour le solveur en cours, redirection ...", "success");
 		setInterval(function()	{window.location.replace("index.html");},3000);
 	}
