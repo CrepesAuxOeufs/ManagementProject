@@ -86,9 +86,9 @@ $(document).ready(function(){
 			var table = document.getElementById("profile_tab_incompatibility");
 			for(uncompatibility in userInfo.uncompatibility){
 				var row = table.insertRow();
-				var cell0 = row.insertCell(0); cell0.innerHTML = uncompatibility[0].id;
-				//var cell1 = row.insertCell(1); cell1.innerHTML = selected.profile_name;
-				//var cell2 = row.insertCell(2); cell2.innerHTML = selected.profile_nickname;
+				var cell0 = row.insertCell(0); cell0.innerHTML = userInfo.uncompatibility[uncompatibility].id;
+				var cell1 = row.insertCell(1); cell1.innerHTML = userInfo.uncompatibility[uncompatibility].name;
+				var cell2 = row.insertCell(2); cell2.innerHTML = userInfo.uncompatibility[uncompatibility].nickname;
 			}
 		}
 	});
