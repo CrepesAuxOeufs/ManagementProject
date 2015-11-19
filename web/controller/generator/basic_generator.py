@@ -744,7 +744,8 @@ for i in range(len(Equipe)):
 groups = []
 for i in range(len(Equipe)):
 	group = {}
-	group['name'] = str("Groupe " + str(i))
+	group['id'] = i
+	group['name'] = str("Groupe " + str(i+1))
 	group['score'] = ScoreParEquipe[i]
 	groups.append(group)
 
