@@ -74,33 +74,56 @@
 		<div class="panel-body">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" id="tab_nav_regle">
-				<li class="active"><a href="#basic_1" data-toggle="tab">Home</a>
+				<li class="active"><a href="#basic_1" data-toggle="tab">Récupération des élèves</a>
 				</li>
-				<li><a href="#basic_2" data-toggle="tab">Profile</a>
+				<li><a href="#basic_2" data-toggle="tab">Listage des élèves</a>
 				</li>
-				<li><a href="#basic_3" data-toggle="tab">Messages</a>
+				<li><a href="#basic_3" data-toggle="tab">Génération de groupe</a>
 				</li>
-				<li><a href="#basic_4" data-toggle="tab">Settings</a>
+				<li><a href="#basic_4" data-toggle="tab">Ajout des derniers élèves</a>
 				</li>
 			</ul>
 
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="basic_1">
-					<h4>Etape 1: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Étape 1: </h4>
+					<p>
+						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations belbin ainsi que leurs incompatibilités s’il y a.
+					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_2">
-					<h4>Etape 2: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Étape 2: </h4>
+					<p>
+						On commence par créer un nombre de listes égales au nombre de compétences et des différents profils belbin.
+					</p>
+					<p>
+						Ensuite on ajoute tous les élèves dans chaque liste, puis on les classe par niveau, par ordre décroissant (du plus fort au plus faible).
+					</p>
+					<p>
+						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier à avoir été enregistré puis le second.
+					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_3">
-					<h4>Etape 3: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Étape 3: </h4>
+					<p>
+						On poursuit par la création des groupes en prenant le meilleur d’un domaine et en le mettant dans le premier groupe, puis le deuxième élève ayant le plus haut niveau dans le second groupe, ainsi de suite jusqu’à que les groupes soient totalement remplis 
+					</p>
+					<p>
+						Il y a un ordre, nous commençons par les compétences techniques suivis par les niveaux belbin.
+					</p>
+					<p>
+						Cette étape prend en compte les incompatibilités, si incompatibilité il y a, nous prendrons le prochain élève sur la liste et l’élève actuel ira dans le prochain groupe s’il n’y a pas d’éventuelle incompatibilité.
+					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_4">
-					<h4>Etape 4: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Étape 4: </h4>
+					<p>
+						Pour les derniers élèves; cas où nous aurions des groupes disproportionnés; nous les plaçons simplement selon leurs incompatibilités dans les premiers groupes créés. 
+					</p>
+					<p>
+						Étant donné que ces élèves ont le niveau le plus faible et que les premiers groupes ont généralement un niveau plus élevé (se figurer à <a href="#basic_2" data-toggle="tab">l'étape 2</a>).
+					</p>
 				</div>
 			</div>
 		</div>
