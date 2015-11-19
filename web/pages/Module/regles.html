@@ -82,6 +82,8 @@
 				</li>
 				<li><a href="#basic_4" data-toggle="tab">Ajout des derniers élèves</a>
 				</li>
+				<li><a href="#basic_5" data-toggle="tab">Scoring</a>
+				</li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -90,6 +92,7 @@
 					<h4>Étape 1: </h4>
 					<p>
 						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations belbin ainsi que leurs incompatibilités s’il y a.
+						<img src="../images/Etape1.png">
 					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_2">
@@ -103,6 +106,7 @@
 					<p>
 						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier à avoir été enregistré puis le second.
 					</p>
+					<img src="../images/Etape2.png">
 				</div>
 				<div class="tab-pane fade" id="basic_3">
 					<h4>Étape 3: </h4>
@@ -112,18 +116,15 @@
 					<p>
 						Il y a un ordre, nous commençons par les compétences techniques suivis par les niveaux belbin.
 					</p>
-					<p>
-						Cette étape prend en compte les incompatibilités, si incompatibilité il y a, nous prendrons le prochain élève sur la liste et l’élève actuel ira dans le prochain groupe s’il n’y a pas d’éventuelle incompatibilité.
-					</p>
+					<img src="../images/Etape3.png">
 				</div>
 				<div class="tab-pane fade" id="basic_4">
 					<h4>Étape 4: </h4>
-					<p>
-						Pour les derniers élèves; cas où nous aurions des groupes disproportionnés; nous les plaçons simplement selon leurs incompatibilités dans les premiers groupes créés. 
-					</p>
-					<p>
-						Étant donné que ces élèves ont le niveau le plus faible et que les premiers groupes ont généralement un niveau plus élevé (se figurer à <a href="#basic_2" data-toggle="tab">l'étape 2</a>).
-					</p>
+					
+				</div>
+				<div class="tab-pane fade" id="basic_5">
+					<h4>Étape 5: </h4>
+					
 				</div>
 			</div>
 		</div>
