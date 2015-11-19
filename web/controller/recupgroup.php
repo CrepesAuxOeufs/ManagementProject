@@ -27,7 +27,7 @@
 	
     function getAllGroup($data)
     {
-        $result = mysql_query( "SELECT `GROUP`.name, `USER`.id,`USER`.name,`USER`.nickname
+        $result = mysql_query( "SELECT `GROUP`.name,`GROUP`.score, `USER`.id,`USER`.name,`USER`.nickname
                             FROM `GROUP`, `USER`, `USER_GROUP` 
                             WHERE `GROUP`.id = `USER_GROUP`.group_id 
                             AND `USER`.id = `USER_GROUP`.user_id 
@@ -45,10 +45,48 @@
         while($row = mysql_fetch_row($result))
         {
             $nameGroup = $row[0];
-            $userID = $row[1];
-            $useName = $row[2];
-            $userNickname = $row[3];
-			
+            $scoreGroup = $row[1];
+            $userID = $row[2];
+            $useName = $row[3];
+            $userNickname = $row[4];
+			//BELBIN
+			$belbins = array();
+			$belbinScore = 0;
+			$resultBelbin = mysql_query( "SELECT USER.id,USER.admin, USER.name,USER.nickname,BELBIN.id as belbin_id, USER_BELBIN.value as belbin_value,BELBIN.name as belbin_name
+									FROM `USER`
+									INNER JOIN `USER_BELBIN` ON USER.id = USER_BELBIN.user_id
+									INNER JOIN `BELBIN` ON BELBIN.id  =  USER_BELBIN.belbin_id
+									WHERE USER.id = '". $userID . "'");
+
+			while($rowBelbin = mysql_fetch_assoc($resultBelbin))
+			{
+				$belbin = array();
+				$belbin["id"] = $rowBelbin["belbin_id"];
+				$belbin["value"] = $rowBelbin["belbin_value"];
+				$belbin["name"] = $rowBelbin["belbin_name"];
+				$belbinScore += $rowBelbin["belbin_value"];
+				array_push($belbins, $belbin);
+			}
+			//SKILLS
+			$skills = array();
+			$skillScore = 0;
+			$resultSkill = mysql_query( "SELECT USER.id,USER.name,USER.nickname,SKILL.id as skill_id, USER_SKILL.value as skill_value, SKILL.name as skill_name
+										FROM `USER`
+										INNER JOIN `USER_SKILL` ON USER.id =USER_SKILL.user_id
+										INNER JOIN `SKILL` ON SKILL.id  =  USER_SKILL.skill_id
+										WHERE USER.id = '". $userID . "'");
+
+			while($rowSkill = mysql_fetch_assoc($resultSkill))
+			{
+				$skill = array();
+				$skill["id"] = $rowSkill["skill_id"];
+				$skill["value"] = $rowSkill["skill_value"];
+				$skill["name"] = $rowSkill["skill_name"];
+				$skillScore += $rowSkill["skill_value"];
+				array_push($skills, $skill);
+			}			
+				
+				
 			$found = null;
 			foreach($groupArray as &$group){
 				if($group["name"] == $nameGroup){
@@ -60,6 +98,9 @@
 				$found = array();
 				$found["name"] = $nameGroup;
 				$found["users"] = array(); 
+				$found["scoreGlobal"] = $scoreGroup;
+				$found["scoreBelbin"] = 0 ;
+				$found["scoreSkill"] = 0 ;
 				array_push($groupArray, $found);
 			}
 				
@@ -68,11 +109,20 @@
 			$user["id"] = $userID;
 			$user["name"] = $useName;
 			$user["nickname"] = $userNickname;
+			$user["belbin"] = $belbins;
+			$user["skills"] = $skills;
 			
 			foreach($groupArray as &$group){
 				if($group["name"] == $nameGroup){
+					$group["scoreBelbin"] += $belbinScore;
+					$group["scoreSkill"] += $skillScore;
 					array_push($group["users"], $user);
 				}
+			}
+			
+			foreach($groupArray as &$group){
+				$group["scoreBelbin"] = round( ($group["scoreBelbin"] / 8) * 100 ) /100;
+				$group["scoreSkill"] = round( ($group["scoreSkill"] / 5) * 100 ) /100;
 			}
         }
         return $groupArray;
