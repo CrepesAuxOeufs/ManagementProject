@@ -23,7 +23,7 @@ function getGroups(){
 			
 			GenALLGroupV2(msg.data);
 		}
-});
+	});
 	
 }
 
@@ -36,7 +36,7 @@ function GenALLGroupV2(gobject){
 		
 		
 		
-		var grpbuilder = '<div class="col-lg-4 col-md-4" style="padding-top:5px;"> \
+		var grpbuilder = '<div class="col-lg-12 col-md-12" style="padding-top:5px;"> \
 							<div class="panel panel-primary">\
 								<div class="panel-heading">\
 									<div class="row">';
@@ -52,7 +52,7 @@ function GenALLGroupV2(gobject){
 		
 		for (user in group_users){
 			
-			grpbuilder += '<div class="col-xs-6" style="text-align:center;" >'+group_users[user]["nickname"]+' '+group_users[user]["name"]+'</div>'
+			grpbuilder += '<div class="col-xs-3" style="text-align:center;" >'+group_users[user]["nickname"]+' '+group_users[user]["name"]+'</div>'
 			
 			
 			 
