@@ -82,11 +82,32 @@
 
 	for ($a = $idPremierEtudiant ; $a <= $idDernierEtudiant ; $a++)
 	{
-		$nbIncompatibilite = rand (0,4);
+
+		$nbIncomPourcentage = rand(0,100);
+
+		switch ($nbIncomPourcentage) 
+		{
+			case ($nbIncomPourcentage <= 40):
+				$nbIncompatibilite = 0;
+				break;
+			case ($nbIncomPourcentage > 40) && ($nbIncomPourcentage <= 70):
+				$nbIncompatibilite = 1;
+				break;
+			case ($nbIncomPourcentage > 70) && ($nbIncomPourcentage <= 85):
+				$nbIncompatibilite = 2;
+				break;
+			case ($nbIncomPourcentage > 85) && ($nbIncomPourcentage <= 95):
+				$nbIncompatibilite = 3;
+				break;
+			case ($nbIncomPourcentage > 95) && ($nbIncomPourcentage <= 100):
+				$nbIncompatibilite = 4;
+				break;
+		}
 
 		$Incomp1 = 0;
 		$Incomp2 = 0;
 		$Incomp3 = 0;
+
 
 		if ($nbIncompatibilite != 0)
 		{
@@ -117,59 +138,59 @@
 		}
 	}
 
-	/* Creation de groupes bidon */
+	// /* Creation de groupes bidon */
 
-	$idEtudiantEnCour = $idPremierEtudiant;
+	// $idEtudiantEnCour = $idPremierEtudiant;
 
-	for ($c = 1 ; $c <= $nbGroupNormal ; $c++)
-	{
-		/* Creation des informations du group */
-		$project_id = "1";
-		$name = "Group" . $c;
+	// for ($c = 1 ; $c <= $nbGroupNormal ; $c++)
+	// {
+	// 	/* Creation des informations du group */
+	// 	$project_id = "1";
+	// 	$name = "Group" . $c;
 
-		/* On ajoute une nouvel Etudiant */
-		mysql_query("INSERT INTO `GROUP`(`project_id`, `name`) 
-				 	VALUES ('". $project_id ."','". $name ."')");
+	// 	/* On ajoute une nouvel Etudiant */
+	// 	mysql_query("INSERT INTO `GROUP`(`project_id`, `name`) 
+	// 			 	VALUES ('". $project_id ."','". $name ."')");
 
-		$resultGroup = mysql_query("SELECT id FROM `GROUP` WHERE name = '".$name."'");
-		$row = mysql_fetch_assoc($resultGroup);
-		$idGroup = $row['id']; 
+	// 	$resultGroup = mysql_query("SELECT id FROM `GROUP` WHERE name = '".$name."'");
+	// 	$row = mysql_fetch_assoc($resultGroup);
+	// 	$idGroup = $row['id']; 
 
-		for ($d = 1 ; $d <=$nbEleveGroupe ; $d++)
-		{
-			/* On ajoute une nouvel Etudiant */
-			mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) 
-					 	VALUES ('". $idEtudiantEnCour ."','". $idGroup ."')");
+	// 	for ($d = 1 ; $d <=$nbEleveGroupe ; $d++)
+	// 	{
+	// 		/* On ajoute une nouvel Etudiant */
+	// 		mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) 
+	// 				 	VALUES ('". $idEtudiantEnCour ."','". $idGroup ."')");
 
-			$idEtudiantEnCour = $idEtudiantEnCour + 1 ;
-		}
-	}
-	if ($nbGroupSup != 0)
-	{
-		for ($e = 1 ; $e <= $nbGroupSup ; $e++)
-		{
-			/* Creation des informations du group */
-			$project_id = "1";
-			$number = $c + $e;
-			$name = "Group" . $number ;
+	// 		$idEtudiantEnCour = $idEtudiantEnCour + 1 ;
+	// 	}
+	// }
+	// if ($nbGroupSup != 0)
+	// {
+	// 	for ($e = 1 ; $e <= $nbGroupSup ; $e++)
+	// 	{
+	// 		/* Creation des informations du group */
+	// 		$project_id = "1";
+	// 		$number = $c + $e;
+	// 		$name = "Group" . $number ;
 
-			/* On ajoute une nouvel Etudiant */
-			mysql_query("INSERT INTO `GROUP`(`project_id`, `name`) 
-					 	VALUES ('". $project_id ."','". $name ."')");
+	// 		/* On ajoute une nouvel Etudiant */
+	// 		mysql_query("INSERT INTO `GROUP`(`project_id`, `name`) 
+	// 				 	VALUES ('". $project_id ."','". $name ."')");
 
-			$resultGroup = mysql_query("SELECT id FROM `GROUP` WHERE name = '".$name."'");
-			$row = mysql_fetch_assoc($resultGroup);
-			$idGroup = $row['id']; 
+	// 		$resultGroup = mysql_query("SELECT id FROM `GROUP` WHERE name = '".$name."'");
+	// 		$row = mysql_fetch_assoc($resultGroup);
+	// 		$idGroup = $row['id']; 
 
-			for ($f = 1 ; $f <=$nbEleveGroupeSup ; $f++)
-			{
-				/* On ajoute une nouvel Etudiant */
-				mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) 
-						 	VALUES ('". $idEtudiantEnCour ."','". $idGroup ."')");
+	// 		for ($f = 1 ; $f <=$nbEleveGroupeSup ; $f++)
+	// 		{
+	// 			/* On ajoute une nouvel Etudiant */
+	// 			mysql_query("INSERT INTO `USER_GROUP`(`user_id`, `group_id`) 
+	// 					 	VALUES ('". $idEtudiantEnCour ."','". $idGroup ."')");
 
-				$idEtudiantEnCour = $idEtudiantEnCour + 1 ;
-			}
-		}
-	}
+	// 			$idEtudiantEnCour = $idEtudiantEnCour + 1 ;
+	// 		}
+	// 	}
+	// }
 	
 ?>
