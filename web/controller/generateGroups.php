@@ -37,7 +37,7 @@
 	$response["data"] = $data;
 	$file = 'generator/data.json';
 	$current = file_get_contents($file);
-	$current = json_encode($data);
+	$current = json_encode($data,true);
 	file_put_contents($file, $current);
 	
 	// Generation + sauvegarde
@@ -66,7 +66,7 @@ function saveGroup($data){
 
 function getIdUserList()
 {		
-    $result = mysql_query("SELECT id FROM USER WHERE admin = 0");
+    $result = mysql_query("SELECT id FROM USER WHERE admin = 0 AND profil = 1");
 
 	$users = array();
 
