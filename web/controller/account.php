@@ -274,13 +274,19 @@
 		return $response;
 	}
 	function createGroup($data){
-		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"))["group_id_max"] +1;
+		$group  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"));
+		$group_id = $group["group_id_max"] +1;
 		mysql_query ("INSERT INTO `GROUP`(`id`,`project_id`,`name`) VALUES ('".$group_id."','1','".$data["group_name"]."')");
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
 	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT group_id AS group_id FROM `GROUP_USER` WHERE user_id = '". $data["user_id"] ."'"));
+		if($group_id == null)
+			mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		else
+			mysql_query ("UPDATE GROUP SET group_id='" . $data["group_id"] . "' WHERE user_id='" . $data["user_id"] . "'");
+		calculGroupScore($group_id);
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
@@ -291,12 +297,7 @@
 		calculGroupScore($group_id);
 		return $response;
 	}
-	/*function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
-		$response = getJSONFromCodeError(200);
-		calculGroupScore($group_id);
-		return $response;
-	}*/
+
 	function getUsersUngroup($data){
 		$result = mysql_query("SELECT `USER`.id,`USER`.name,`USER`.nickname FROM `USER`
 								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id
@@ -361,7 +362,7 @@
 		$skillScore = round( ($skillScore/ $nbUsers) * 100 ) /100;
 		$scoreGlobal = round($belbinScore + $skillScore);
 		
-		mysql_query ("UPDATE GROUP SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
+		mysql_query ("UPDATE `GROUP` SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
 		
 	}
 ?>
