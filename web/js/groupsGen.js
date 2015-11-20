@@ -1,6 +1,6 @@
 ﻿$("#complex_iteration").slider({
-    ticks: [3000, 6000, 9000, 12000],
-    ticks_labels: ['3000','6000','9000','12000'],
+    ticks: [10000, 30000, 50000, 70000],
+    ticks_labels: ['10000','30000','50000','70000'],
     ticks_snap_bounds: 40
 });
 document.getElementById("param_complex_box").style.display = 'none';
