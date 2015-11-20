@@ -280,7 +280,11 @@
 		return $response;
 	}
 	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT group_id AS group_id FROM `GROUP_USER` WHERE user_id = '". $data["user_id"] ."'"));
+		if($group_id == null)
+			mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		else
+			mysql_query ("UPDATE GROUP SET group_id='" . $data["group_id"] . "' WHERE user_id='" . $data["user_id"] . "'");
 		calculGroupScore($group_id);
 		$response = getJSONFromCodeError(200);
 		return $response;
@@ -356,7 +360,7 @@
 		$skillScore = round( ($skillScore/ $nbUsers) * 100 ) /100;
 		$scoreGlobal = round($belbinScore + $skillScore);
 		
-		mysql_query ("UPDATE GROUP SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
+		mysql_query ("UPDATE `GROUP` SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
 		
 	}
 ?>
