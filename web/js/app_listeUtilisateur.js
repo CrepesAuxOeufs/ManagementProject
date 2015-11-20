@@ -30,7 +30,7 @@ function getUsers(){
 			dataType: 'json',
 			success: function(msg){
 				console.log("liste_userConnection");
-				
+				console.log(msg);
 			updateData(msg.data);
 			}
 	});
@@ -55,6 +55,7 @@ function create_user(){
 			dataType: 'json',
 			success: function(msg){
 				console.log("create_user");
+				console.log(msg);
 				getUsers();
 				userAddMessage("success","success");
 				

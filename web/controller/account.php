@@ -33,7 +33,12 @@
 								"data": {"group_name":"nouveau groupe"}
 							}';
 			*/	
+	/*$jsonString = '{
+								"request": "createGroup",
+								"data": {"group_name":"nouveau groupe"}
+							}';*/
 			
+refs/remotes/origin/master
 	//$json = json_decode($jsonString,true);
 	
 	
@@ -274,11 +279,16 @@
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
+	function addUserToGroup($data){
+		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
 	function removeUserFromGroup($data){
 		$group_id = mysql_fetch_assoc(mysql_query("SELECT group_id FROM `USER_GROUP` WHERE user_id = '". $data["user_id"] ."'"));
 		mysql_query ("DELETE `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
-		calculGroupScore($group_id);
 		$response = getJSONFromCodeError(200);
+		calculGroupScore($group_id);
 		return $response;
 	}
 	function addUserToGroup($data){

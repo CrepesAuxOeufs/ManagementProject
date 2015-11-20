@@ -8,7 +8,8 @@ var Page = {
 			group:				"listeGroup",
 			alreadyRegistred:	"AlreadyRegistred",
 			groupeGen:			"groupsGen",
-			regles:				"regles"
+			regles:				"regles",
+			editionGroupe:		"editiongroupe"
 			};
 			
 
