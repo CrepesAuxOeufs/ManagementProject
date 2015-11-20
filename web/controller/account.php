@@ -21,14 +21,18 @@
 								"data": {"user_id":481,"group_id":9}
 							}';
 	$jsonString = '{
-								"request": "switchUserFromGroup",
-								"data": {"user_id":481,"group_id":9}
-							}';
-	$jsonString = '{
 								"request": "getUsersUngroup",
 								"data": {}
 							}';
-							
+	$jsonString = '{
+								"request": "removeGroup",
+								"data": {"group_id":9}
+							}';
+	$jsonString = '{
+								"request": "createGroup",
+								"data": {"group_name":"nouveau groupe"}
+							}';
+				
 	$json = json_decode($jsonString,true);
 	*/
 	
@@ -59,12 +63,16 @@
 	else if ($request == "addUserFromGroup"){
 		$response = addUserToGroup($json["data"]);
 	}
-	else if ($request == "switchUserFromGroup"){
-		$response = switchUserFromGroup($json["data"]);
-	}
 	else if ($request == "getUsersUngroup"){
 		$response = getUsersUngroup($json["data"]);
 	}
+	else if ($request == "removeGroup"){
+		$response = removeGroup($json["data"]);
+	}
+	else if ($request == "createGroup"){
+		$response = createGroup($json["data"]);
+	}
+	
 	
 	
 	echo json_encode($response);
@@ -250,39 +258,33 @@
 		return $response;
 	}
 	
-	/*
+	function calculGroupScore($group_id){
 	
-	$jsonString = '{
-								"request": "removeUserFromGroup",
-								"data": {"user_id":481}
-							}';
-	$jsonString = '{
-								"request": "addUserToGroup",
-								"data": {"user_id":481,"group_id":9}
-							}';
-	$jsonString = '{
-								"request": "switchUserFromGroup",
-								"data": {"user_id":481,"group_id":9}
-							}';
-	$jsonString = '{
-								"request": "getUsersUngroup",
-								"data": {}
+	}
 	
-	
-	*/
+	function removeGroup($data){
+		mysql_query ("DELETE `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
+		mysql_query ("DELETE `GROUP` WHERE id='" . $data["group_id"] . "'");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
+	function createGroup($data){
+		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1")) +1;
+		mysql_query ("INSERT INTO `GROUP`(`id`,`name`) VALUES ('".$group_id."','".$data["group_name"]."')");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
 	function removeUserFromGroup($data){
+		$group_id = mysql_fetch_assoc(mysql_query("SELECT group_id FROM `USER_GROUP` WHERE user_id = '". $data["user_id"] ."'"));
 		mysql_query ("DELETE `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
+		calculGroupScore($group_id);
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
 	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `project_id`, `name`) VALUES ('".$groups["project_id"]."','".$groups["name"]."')");
+		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `name`) VALUES ('".$groups["group_id"]."','".$groups["name"]."')");
 		$response = getJSONFromCodeError(200);
-		return $response;
-	}
-	function switchUserFromGroup($data){
-		mysql_query ("UPDATE `USER_GROUP` SET group_id='" . $data["groupe_id"] . "' WHERE user_id='" . $data["user_id"] . "'");
-		$response = getJSONFromCodeError(200);
+		calculGroupScore($group_id);
 		return $response;
 	}
 	function getUsersUngroup($data){
