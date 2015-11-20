@@ -218,6 +218,7 @@ function GenALLGroupV2(gobject){
 				$("#user_groupe").append(option1);
 				$("#sup_grp").append(option2);
 			}
+			console.log(grp_idName);
 			
 			
 			
@@ -279,7 +280,7 @@ function Supp_group(){
 								request: "removeGroup",
 								data: {"group_id":grp_idName[$("#sup_grp").val()]}
 							};
-								
+	console.log(params_allUsers)							
 	$.ajax(	{
 			type: "POST",
 			url: "../controller/account.php",
@@ -287,6 +288,7 @@ function Supp_group(){
 			dataType: 'json',
 			success: function(msg){
 				console.log(msg);
+				console.log(grp_idName[$("#sup_grp").val()]);
 				
 				
 				

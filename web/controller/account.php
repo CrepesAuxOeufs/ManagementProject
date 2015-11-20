@@ -9,7 +9,7 @@
 	* 			MAIN ACTION
 	*  ########################### */
 	$connexion = connectBDD();
-	
+
 		
 	/*
 	$jsonString = '{
@@ -73,6 +73,7 @@
 		$response = getUsersUngroup($json["data"]);
 	}
 	else if ($request == "removeGroup"){
+		echo "requete recu";
 		$response = removeGroup($json["data"]);
 	}
 	else if ($request == "createGroup"){
@@ -254,7 +255,6 @@
 		foreach($data["groups"] as $groups){ // Save group in BDD
 			mysql_query ("INSERT INTO `GROUP`( `project_id`, `name`) VALUES ('".$groups["project_id"]."','".$groups["name"]."')");
 			$id_group = mysql_fetch_assoc(mysql_query ("SELECT id FROM `GROUP` WHERE name = '" . $groups["name"] . "' limit 1"));
-			echo "Id du group:			".$id_group["id"]."			";
 			//USER_GROUP
 			foreach($groups["user"] as $user){
 				mysql_query ("INSERT INTO `USER_GROUP`( `user_id`, `group_id`) VALUES ('".$user["id"]."','".$id_group["id"]."')");
@@ -268,8 +268,12 @@
 
 	
 	function removeGroup($data){
-		mysql_query ("DELETE `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
-		mysql_query ("DELETE `GROUP` WHERE id='" . $data["group_id"] . "'");
+		echo "gne";
+		echo $data["group_id"];
+		mysql_query ("DELETE FROM `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
+		echo "gne";
+		mysql_query ("DELETE FROM `GROUP` WHERE id='" . $data["group_id"] . "'");
+		echo "gne";
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
@@ -298,7 +302,7 @@
 	}
 	function removeUserFromGroup($data){
 		$group_id = mysql_fetch_assoc(mysql_query("SELECT group_id FROM `USER_GROUP` WHERE user_id = '". $data["user_id"] ."'"));
-		mysql_query ("DELETE `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
+		mysql_query ("DELETE FROM `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
 		$response = getJSONFromCodeError(200);
 		calculGroupScore($group_id);
 		return $response;
