@@ -33,15 +33,12 @@
 								"data": {"group_name":"nouveau groupe"}
 							}';
 			*/	
-	$jsonString = '{
-								"request": "createGroup",
-								"data": {"group_name":"nouveau groupe"}
-							}';
-	$json = json_decode($jsonString,true);
+			
+	//$json = json_decode($jsonString,true);
 	
 	
 	
-	//$json = json_decode(file_get_contents("php://input"),true);
+	$json = json_decode(file_get_contents("php://input"),true);
 	
 	$request = $json["request"];
 	$response = null;
@@ -49,7 +46,7 @@
 	if($request ==  "getAllAccount"){
 		$response = getUserList($json["userId"],$json["raw"],false);
 	}
-	if($request ==  "getAllAccountReady"){
+	else if($request ==  "getAllAccountReady"){
 		$response = getUserList($json["userId"],$json["raw"],true);
 	}
 	else if($request ==  "save"){
