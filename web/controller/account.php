@@ -38,6 +38,7 @@
 								"data": {"group_name":"nouveau groupe"}
 							}';*/
 			
+
 	//$json = json_decode($jsonString,true);
 	
 	
@@ -302,6 +303,7 @@
 		calculGroupScore($group_id);
 		return $response;
 	}
+
 	function getUsersUngroup($data){
 		$result = mysql_query("SELECT `USER`.id,`USER`.name,`USER`.nickname FROM `USER`
 								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id
