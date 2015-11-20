@@ -32,12 +32,16 @@
 								"request": "createGroup",
 								"data": {"group_name":"nouveau groupe"}
 							}';
-				
+			*/	
+	$jsonString = '{
+								"request": "createGroup",
+								"data": {"group_name":"nouveau groupe"}
+							}';
 	$json = json_decode($jsonString,true);
-	*/
 	
 	
-	$json = json_decode(file_get_contents("php://input"),true);
+	
+	//$json = json_decode(file_get_contents("php://input"),true);
 	
 	$request = $json["request"];
 	$response = null;
@@ -60,7 +64,7 @@
 	else if ($request == "removeUserFromGroup"){
 		$response = removeUserFromGroup($json["data"]);
 	}
-	else if ($request == "addUserFromGroup"){
+	else if ($request == "addUserToGroup"){
 		$response = addUserToGroup($json["data"]);
 	}
 	else if ($request == "getUsersUngroup"){
@@ -72,6 +76,8 @@
 	else if ($request == "createGroup"){
 		$response = createGroup($json["data"]);
 	}
+	else
+		$response = getJSONFromCodeError(202);
 	
 	
 	
@@ -266,8 +272,8 @@
 		return $response;
 	}
 	function createGroup($data){
-		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1")) +1;
-		mysql_query ("INSERT INTO `GROUP`(`id`,`name`) VALUES ('".$group_id."','".$data["group_name"]."')");
+		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"))["group_id_max"] +1;
+		mysql_query ("INSERT INTO `GROUP`(`id`,`project_id`,`name`) VALUES ('".$group_id."','1','".$data["group_name"]."')");
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
