@@ -38,7 +38,7 @@
 								"data": {"group_name":"nouveau groupe"}
 							}';*/
 			
-refs/remotes/origin/master
+
 	//$json = json_decode($jsonString,true);
 	
 	
@@ -291,12 +291,12 @@ refs/remotes/origin/master
 		calculGroupScore($group_id);
 		return $response;
 	}
-	function addUserToGroup($data){
+	/*function addUserToGroup($data){
 		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
 		$response = getJSONFromCodeError(200);
 		calculGroupScore($group_id);
 		return $response;
-	}
+	}*/
 	function getUsersUngroup($data){
 		$result = mysql_query("SELECT `USER`.id,`USER`.name,`USER`.nickname FROM `USER`
 								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id

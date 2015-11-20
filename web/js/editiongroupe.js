@@ -222,6 +222,7 @@ function GenALLGroupV2(gobject){
 				
 				var option = $('<option></option>').attr("value", msg.data[blop].name).text(msg.data[blop].name);
 				$("#user_groupe").append(option);
+				$("#sup_grp").append(option);
 			}
 			
 			
@@ -276,6 +277,30 @@ var params_allUsers = {
 
 }
 
+
+
+function Supp_group(){
+	
+	var params_allUsers = {
+								request: "removeGroup",
+								data: {"group_id":grp_idName[$("#sup_grp").val()]}
+							};
+								
+	$.ajax(	{
+			type: "POST",
+			url: "../controller/account.php",
+			data: JSON.stringify(params_allUsers),
+			dataType: 'json',
+			success: function(msg){
+				console.log(msg);
+				
+				
+				
+				
+			}
+	});
+	
+}
 
 
 
