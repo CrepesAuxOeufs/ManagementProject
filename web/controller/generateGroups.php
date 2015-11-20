@@ -6,14 +6,16 @@
 
 	/* for test */
 	/*
-    $json = '{
+    $jsonString = '{
     			"request":"generateGroups",
     			"data":{
-    					"nbGroup":"7"
+    					"nbGroup":"10",
+						"type":"basic"
     					}
     		}';
 
-	$parsed_json = json_decode($json);*/
+	$json = json_decode($jsonString,true);
+	*/
 	
 	$json = json_decode(file_get_contents("php://input"),true);
 	$request = $json["request"];
@@ -24,10 +26,10 @@
 	}
 	
 	$nbGroup = $json["data"]["nbGroup"];
-	
 	// Preparation
 	$userIdList = getIdUserList();
 	$usersCaracterisitcs = getUserCaracteristics($userIdList);
+	
 	$data = array(); 
 	$data["nbGroup"] = $nbGroup;
 	$data["users"] = $usersCaracterisitcs;
@@ -35,20 +37,24 @@
 	$response["data"] = $data;
 	$file = 'generator/data.json';
 	$current = file_get_contents($file);
-	$current = json_encode($data);
+	$current = json_encode($data,true);
 	file_put_contents($file, $current);
 	
 	// Generation + sauvegarde
 	$data = exec("py ./generator/basic_generator.py");
-	saveGroup(json_decode($data, true));
 	// Reponse
-	$response = getJSONFromCodeError(200);
+	
+	if($data == null || $data == "")
+		$response = getJSONFromCodeError(600);
+	else{
+		saveGroup(json_decode($data, true));
+		$response = getJSONFromCodeError(200);
+	}
 	echo json_encode($response);
 	
 function saveGroup($data){
 	mysql_query("DELETE FROM `GROUP`");
 	mysql_query("DELETE FROM `USER_GROUP`");
-	
 	foreach ($data["groups"] as $group){
 		mysql_query("INSERT INTO `GROUP`(`id`,`project_id`, `name`, `score`) VALUES ('". $group["id"] ."','". 1 ."','". $group["name"] ."', '". $group["score"] ."')");
 	}
@@ -60,7 +66,7 @@ function saveGroup($data){
 
 function getIdUserList()
 {		
-    $result = mysql_query("SELECT id FROM USER WHERE admin = 0");
+    $result = mysql_query("SELECT id FROM USER WHERE admin = 0 AND profil = 1");
 
 	$users = array();
 

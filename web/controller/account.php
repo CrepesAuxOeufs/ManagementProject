@@ -10,12 +10,25 @@
 	*  ########################### */
 	$connexion = connectBDD();
 	
+		
 	/*
 	$jsonString = '{
-								"request": "getAllAccount",
-								"raw": ["id","name","nickname","mail","password","belbin","skills","uncompatibility"],
-								"userId" : "-1"
+								"request": "removeUserFromGroup",
+								"data": {"user_id":481}
 							}';
+	$jsonString = '{
+								"request": "addUserToGroup",
+								"data": {"user_id":481,"group_id":9}
+							}';
+	$jsonString = '{
+								"request": "switchUserFromGroup",
+								"data": {"user_id":481,"group_id":9}
+							}';
+	$jsonString = '{
+								"request": "getUsersUngroup",
+								"data": {}
+							}';
+							
 	$json = json_decode($jsonString,true);
 	*/
 	
@@ -26,7 +39,10 @@
 	$response = null;
 
 	if($request ==  "getAllAccount"){
-		$response = getUserList($json["userId"],$json["raw"]);
+		$response = getUserList($json["userId"],$json["raw"],false);
+	}
+	if($request ==  "getAllAccountReady"){
+		$response = getUserList($json["userId"],$json["raw"],true);
 	}
 	else if($request ==  "save"){
 		$response = saveUser($json["data"]);
@@ -37,6 +53,18 @@
 	else if ($request == "saveGroups"){
 		$response = saveGroups($json["data"]);
 	}
+	else if ($request == "removeUserFromGroup"){
+		$response = removeUserFromGroup($json["data"]);
+	}
+	else if ($request == "addUserFromGroup"){
+		$response = addUserToGroup($json["data"]);
+	}
+	else if ($request == "switchUserFromGroup"){
+		$response = switchUserFromGroup($json["data"]);
+	}
+	else if ($request == "getUsersUngroup"){
+		$response = getUsersUngroup($json["data"]);
+	}
 	
 	
 	echo json_encode($response);
@@ -46,7 +74,7 @@
 	* 			FUNCTIONS
 	*  ########################### */
 	
-	function getUserList($userId,$data){
+	function getUserList($userId,$data,$isReady){
 		$users = array();
 		$raw = "";
 		$belbin = false;
@@ -69,7 +97,10 @@
 			else
 				$result = mysql_query("SELECT ". $raw ." FROM USER WHERE USER.id = '". $userId . "' AND admin = 0");
 		else
-			$result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0");
+			if($isReady)
+				$result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0 AND profil = 1");
+			else
+				$result = mysql_query("SELECT ". $raw ." FROM USER WHERE admin = 0");
 			
         while($row = mysql_fetch_assoc($result))
         {
@@ -201,7 +232,7 @@
 		return $response;
 	}
 	
-		function saveGroups($data)
+	function saveGroups($data)
 	{
 		//GROUP
 		foreach($data["groups"] as $groups){ // Save group in BDD
@@ -216,6 +247,60 @@
 		}
 		$response = getJSONFromCodeError(200);
 		$response["data"] = "{}";
+		return $response;
+	}
+	
+	/*
+	
+	$jsonString = '{
+								"request": "removeUserFromGroup",
+								"data": {"user_id":481}
+							}';
+	$jsonString = '{
+								"request": "addUserToGroup",
+								"data": {"user_id":481,"group_id":9}
+							}';
+	$jsonString = '{
+								"request": "switchUserFromGroup",
+								"data": {"user_id":481,"group_id":9}
+							}';
+	$jsonString = '{
+								"request": "getUsersUngroup",
+								"data": {}
+	
+	
+	*/
+	function removeUserFromGroup($data){
+		mysql_query ("DELETE `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
+	function addUserToGroup($data){
+		mysql_query ("INSERT INTO `USER_GROUP`( `project_id`, `name`) VALUES ('".$groups["project_id"]."','".$groups["name"]."')");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
+	function switchUserFromGroup($data){
+		mysql_query ("UPDATE `USER_GROUP` SET group_id='" . $data["groupe_id"] . "' WHERE user_id='" . $data["user_id"] . "'");
+		$response = getJSONFromCodeError(200);
+		return $response;
+	}
+	function getUsersUngroup($data){
+		$result = mysql_query("SELECT * FROM `USER`
+								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id
+								WHERE USER_GROUP.user_id IS NULL
+								and USER.admin = 0 AND USER.profil = 1");
+		$users = array();			
+        while($row = mysql_fetch_assoc($result))
+        {
+			$userInfo = array();
+			$userInfo["id"] = $row["id"];
+			$userInfo["name"] = $row["id"];
+			$userInfo["nickname"] = $row["nickname"];
+			array_push($users,$userInfo);
+		}
+		$response = getJSONFromCodeError(200);
+		$response["data"] = $users;
 		return $response;
 	}
 ?>

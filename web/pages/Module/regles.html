@@ -45,13 +45,13 @@
 		<div class="panel-body">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" id="tab_nav_regle">
-				<li class="active"><a href="#basic_1" data-toggle="tab">Récupération des élèves</a>
+				<li class="active"><a href="#basic_1" data-toggle="tab">Récupérations</a>
 				</li>
-				<li><a href="#basic_2" data-toggle="tab">Listage des élèves</a>
+				<li><a href="#basic_2" data-toggle="tab">Listes</a>
 				</li>
-				<li><a href="#basic_3" data-toggle="tab">Génération de groupe</a>
+				<li><a href="#basic_3" data-toggle="tab">Groupes</a>
 				</li>
-				<li><a href="#basic_4" data-toggle="tab">Ajout des derniers élèves</a>
+				<li><a href="#basic_4" data-toggle="tab">Incompatibilités</a>
 				</li>
 				<li><a href="#basic_5" data-toggle="tab">Scoring</a>
 				</li>
@@ -62,40 +62,48 @@
 				<div class="tab-pane fade in active" id="basic_1">
 					<h4>Étape 1: </h4>
 					<p>
-						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations belbin ainsi que leurs incompatibilités s’il y a.
-						<img src="../images/Etape1.png">
+						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations Belbin ainsi que leurs incompatibilités s’il y en a.
+						<img src="images/Etape1.png" style="max-height: 200px; max-width: 800px;">
 					</p>
 				</div>
-				<div class="tab-pane fade" id="basic_2">
+				<div class="tab-pane fade" id="basic_2" >
 					<h4>Étape 2: </h4>
 					<p>
-						On commence par créer un nombre de listes égales au nombre de compétences et des différents profils belbin.
+						On créer autant de liste que de domaine (compétences, évaluations).<br>
+						Ensuite on ajoute tous les élèves (plus leur score associé) dans chaque liste, puis on les tri par ordre décroissant (du score le plus élevé au plus faible).<br>
+						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier a avoir été enregistré puis le second.
 					</p>
-					<p>
-						Ensuite on ajoute tous les élèves dans chaque liste, puis on les classe par niveau, par ordre décroissant (du plus fort au plus faible).
-					</p>
-					<p>
-						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier à avoir été enregistré puis le second.
-					</p>
-					<img src="../images/Etape2.png">
+					<img src="images/Etape2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
-				<div class="tab-pane fade" id="basic_3">
+				<div class="tab-pane fade" id="basic_3" >
 					<h4>Étape 3: </h4>
 					<p>
-						On poursuit par la création des groupes en prenant le meilleur d’un domaine et en le mettant dans le premier groupe, puis le deuxième élève ayant le plus haut niveau dans le second groupe, ainsi de suite jusqu’à que les groupes soient totalement remplis 
+						On créer autant de liste (groupe) qui est demandé.<br>
+						On récupére autant de personnes qu'il y a de groupe provenant d'une liste compétence, afin d'insérer chaque membre récupérer dans une liste groupe.<br>
+						On répete l'opération sur l'enssemble des listes compétences et autant qu'il reste de personne à placer.<br>
 					</p>
+					<img src="images/Etape3.png" style="max-height: 200px; max-width: 800px;">
 					<p>
-						Il y a un ordre, nous commençons par les compétences techniques suivis par les niveaux belbin.
+						Durant les opérations de placement des personnes, on vérifie que chaque personnes déplacé peut être placé dans la liste groupe qui lui est défini tout en prenant en compte ces incompatibilitées. <br>
+						Dans le cas où la personne ne peut être placé dans la liste groupe selectionné, cette personne céde sa place à la personne suivante dans la liste compétence.<br>
+						Si nous avons une incompatibilité récurente pour l'enssemble des listes groupe, nous le plaçons temporairement dans le groupe actuellement sélectionné.
 					</p>
-					<img src="../images/Etape3.png">
+					<img src="images/Etape3-2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
 				<div class="tab-pane fade" id="basic_4">
 					<h4>Étape 4: </h4>
+					<p>
+						Une fois tout les groupes formés, nous vérifions une derniére fois toutes les incompatibilités de toute les personnes présente dans tout les groupes.
+						Si une incompatibilité est décelé, la personnes en question est ajouté dans une liste de personnes incompatible.<br>
+						Nous essayons d'interchangé les groupes des personnes incompatible, jusqu'a trouvé une solution. <br>
+					</p>
+					<img src="images/Etape4.png" style="max-height: 200px; max-width: 800px;">
 					
 				</div>
 				<div class="tab-pane fade" id="basic_5">
 					<h4>Étape 5: </h4>
-					
+					<p>
+					</p>
 				</div>
 			</div>
 		</div>

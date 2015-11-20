@@ -26,7 +26,7 @@ var spinner = new Spinner(opts).spin(target);
 
 var nbUsers = 0;
 var params_allUsers = {
-							request: "getAllAccount",
+							request: "getAllAccountReady",
 							raw: ["id"]
 						};
 $.ajax(	{
@@ -91,13 +91,19 @@ $("#groups_generate_sumbit").click(function() {
 				success: function(msg){
 					document.getElementById("box_loading").style.display = 'none';
 					console.log(msg);
-					window.location.replace("index.html");
-					errorHeaderAddMessage("Groupe généré avec succés", "success");
+					if(msg.success){
+						window.location.replace("index.html");
+						errorHeaderAddMessage("Groupe généré avec succés", "success");
+					}
+					else{
+						document.getElementById("box_param").style.display = 'block';
+						errorHeaderAddMessage(msg.message, "warning");
+					}
 				}
 		});
 	}
 	else{
-		window.location.href='../controller/exportcsv.php';
+		window.location.href='../controller/ExportCSV.php';
 		errorHeaderAddMessage("Téléchargement du tableur pour le solveur en cours, redirection ...", "success");
 		setInterval(function()	{window.location.replace("index.html");},3000);
 	}

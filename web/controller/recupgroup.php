@@ -6,7 +6,7 @@
 	connectBDD();
 
 	$json = json_decode(file_get_contents("php://input"),true);
-
+	
 	$request = $json["request"];
 	$dataResponse = null;
 	
@@ -27,7 +27,7 @@
 	
     function getAllGroup($data)
     {
-        $result = mysql_query( "SELECT `GROUP`.name,`GROUP`.score, `USER`.id,`USER`.name,`USER`.nickname
+        $result = mysql_query( "SELECT `GROUP`.id,`GROUP`.name,`GROUP`.score, `USER`.id,`USER`.name,`USER`.nickname
                             FROM `GROUP`, `USER`, `USER_GROUP` 
                             WHERE `GROUP`.id = `USER_GROUP`.group_id 
                             AND `USER`.id = `USER_GROUP`.user_id 
@@ -44,11 +44,12 @@
 		
         while($row = mysql_fetch_row($result))
         {
-            $nameGroup = $row[0];
-            $scoreGroup = $row[1];
-            $userID = $row[2];
-            $useName = $row[3];
-            $userNickname = $row[4];
+            $idGroup = $row[0];
+            $nameGroup = $row[1];
+            $scoreGroup = $row[2];
+            $userID = $row[3];
+            $useName = $row[4];
+            $userNickname = $row[5];
 			//BELBIN
 			$belbins = array();
 			$belbinScore = 0;
@@ -82,7 +83,7 @@
 				$skill["id"] = $rowSkill["skill_id"];
 				$skill["value"] = $rowSkill["skill_value"];
 				$skill["name"] = $rowSkill["skill_name"];
-				$skillScore += $rowSkill["skill_value"];
+				$skillScore += $rowSkill["skill_value"] * 4;
 				array_push($skills, $skill);
 			}			
 				
@@ -96,6 +97,7 @@
 			
 			if($found == null){
 				$found = array();
+				$found["id"] = $idGroup;
 				$found["name"] = $nameGroup;
 				$found["users"] = array(); 
 				$found["scoreGlobal"] = $scoreGroup;
@@ -120,11 +122,13 @@
 				}
 			}
 			
-			foreach($groupArray as &$group){
-				$group["scoreBelbin"] = round( ($group["scoreBelbin"] / 8) * 100 ) /100;
-				$group["scoreSkill"] = round( ($group["scoreSkill"] / 5) * 100 ) /100;
-			}
         }
+		
+		foreach($groupArray as &$group){
+			$group["scoreBelbin"] = round( ($group["scoreBelbin"] / count($group["users"])) * 100 ) /100;
+			$group["scoreSkill"] = round( ($group["scoreSkill"] / count($group["users"])) * 100 ) /100;
+		}
+		
         return $groupArray;
     }
 
