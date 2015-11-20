@@ -56,7 +56,7 @@ function create_user(){
 			success: function(msg){
 				console.log("create_user");
 				console.log(msg);
-				getUsers();
+				updateData();
 				userAddMessage("success","success");
 				
 			}
