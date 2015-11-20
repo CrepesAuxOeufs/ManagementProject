@@ -2,14 +2,14 @@
 	
 	<div class="panel panel-default" style="width:100%;background: #000 url('images/fond2.jpeg') no-repeat right top;background-size: 100% 100%;">
         <div style="margin-top: 4%; margin-bottom: 4%;">
-			<h1 style="color:WHITE"><center>Regles de generation</center></h1>
+			<h1 style="color:WHITE"><center>Règles de generation</center></h1>
 		</div>
 		<center>
 		<div class="row" style="width:100%;">
 			<div style="width:30%;float:left;margin:10px;">
 				<div class="jumbotron" style="border-radius: 20px;background: rgba(255, 255, 255, .8);border: 1px solid #000;">
 					<h2>Basique</h2>
-					<p>Genere les groupes de façon deterministe et homogéne.</p>
+					<p>Génère les groupes de façon déterministe et homogéne.</p>
 					<div style="width:70%">
 						<p><span class="glyphicon glyphicon-ok" style="color:GREEN;margin-right: 10px;"></span>Rapidité</p>
 						<p><span class="glyphicon glyphicon-remove" style="color:RED;margin-right: 10px;"></span>Qualité</p>
@@ -22,7 +22,7 @@
 			<div style="width:30%;float:right;margin:10px;">
 				<div class="jumbotron" style="border-radius: 20px;background: rgba(255, 255, 255, .8);border: 1px solid #000;">
 					<h2>Avancé</h2>
-					<p>Genere les groupes de façon non deterministe et homogéne.</p>
+					<p>Génère les groupes de façon non déterministe et homogéne.</p>
 					<div style="width:70%">
 						<p><span class="glyphicon glyphicon-remove" style="color:RED;margin-right: 10px;"></span>Rapidité</p>
 						<p><span class="glyphicon glyphicon-ok" style="color:GREEN;margin-right: 10px;"></span>Qualité</p>
@@ -39,7 +39,7 @@
 	</div>
 	<div class="panel panel-default" style="width:100%">
         <div class="panel-heading">
-			<h1><center>Regle Basique</center></h1>
+			<h1><center>Règle Basique</center></h1>
 		</div>
 		<!-- /.panel-heading -->
 		<div class="panel-body">
@@ -69,40 +69,45 @@
 				<div class="tab-pane fade" id="basic_2" >
 					<h4>Étape 2: </h4>
 					<p>
-						On créer autant de liste que de domaine (compétences, évaluations).<br>
-						Ensuite on ajoute tous les élèves (plus leur score associé) dans chaque liste, puis on les tri par ordre décroissant (du score le plus élevé au plus faible).<br>
-						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier a avoir été enregistré puis le second.
+						On crée autant de liste que de domaine (compétences, évaluations).<br>
+						Ensuite, on ajoute tous les élèves (plus leurs scores associés) dans chaque liste, puis on les trie par ordre décroissant (du score le plus élevé au plus faible).<br>
+						Si deux élèves ont le même niveau, on classera d’abord dans la liste le premier à avoir été enregistré puis le second.
 					</p>
 					<img src="images/Etape2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
 				<div class="tab-pane fade" id="basic_3" >
 					<h4>Étape 3: </h4>
 					<p>
-						On créer autant de liste (groupe) qui est demandé.<br>
-						On récupére autant de personnes qu'il y a de groupe provenant d'une liste compétence, afin d'insérer chaque membre récupérer dans une liste groupe.<br>
-						On répete l'opération sur l'enssemble des listes compétences et autant qu'il reste de personne à placer.<br>
+						On crée autant de liste (groupe) qui est demandé.<br>
+						On récupére autant de personnes qu'il y a de groupe provenant d'une liste compétence, afin d'insérer chaque membre récupéré dans une liste groupe.<br>
+						On répète l'opération sur l'ensemble des listes compétences et autant qu'il reste de personnes à placer.<br>
 					</p>
 					<img src="images/Etape3.png" style="max-height: 200px; max-width: 800px;">
 					<p>
-						Durant les opérations de placement des personnes, on vérifie que chaque personnes déplacé peut être placé dans la liste groupe qui lui est défini tout en prenant en compte ces incompatibilitées. <br>
-						Dans le cas où la personne ne peut être placé dans la liste groupe selectionné, cette personne céde sa place à la personne suivante dans la liste compétence.<br>
-						Si nous avons une incompatibilité récurente pour l'enssemble des listes groupe, nous le plaçons temporairement dans le groupe actuellement sélectionné.
+						Durant les opérations de placement des personnes, on vérifie que chaque personne déplacé peut être placé dans la liste groupe qui lui est définie tout en prenant en compte ses incompatibilités. <br>
+						Dans le cas où la personne ne peut être placé dans la liste groupe selectionnée, cette personne cède sa place à la personne suivante dans la liste compétence.<br>
+						Si nous avons une incompatibilité récurente pour l'ensemble des listes groupe, nous le plaçons temporairement dans le groupe actuellement sélectionné.
 					</p>
 					<img src="images/Etape3-2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
 				<div class="tab-pane fade" id="basic_4">
 					<h4>Étape 4: </h4>
 					<p>
-						Une fois tout les groupes formés, nous vérifions une derniére fois toutes les incompatibilités de toute les personnes présente dans tout les groupes.
-						Si une incompatibilité est décelé, la personnes en question est ajouté dans une liste de personnes incompatible.<br>
-						Nous essayons d'interchangé les groupes des personnes incompatible, jusqu'a trouvé une solution. <br>
+						Une fois tous les groupes formés, nous vérifions une derniére fois toutes les incompatibilités de toutes les personnes présentes dans tous les groupes.
+						Si une incompatibilité est décelée, la personne en question est ajoutée dans une liste de personnes incompatibles.<br>
+						Nous essayons d'interchanger les groupes des personnes incompatibles, jusqu'à trouver une solution. <br>
 					</p>
 					<img src="images/Etape4.png" style="max-height: 200px; max-width: 800px;">
 					
 				</div>
 				<div class="tab-pane fade" id="basic_5">
 					<h4>Étape 5: </h4>
+					<p>Le scoring des équipes est calculé en 3 étapes:</p>
 					<p>
+						<p>1- Pour chaque groupe nous additionnons l'ensemble des résultats belbin de toutes les personnes. (Résultat max d'un domaine belbin: ~25)</p>
+						<p>2- On fait la même étape précédente avec les scores de compétence. Mais ce résultat sera multiplié par 4. (Résultat max d'une compétence: 6)</p>
+						<p>3- Pour terminer, on divise l'addition des 2 résultats précédent par le nombre de personnes dans le groupe.</p>
+						<p>Nous obtenons le résultat global, le score belbin et le score compétence de l'équipe.</p>
 					</p>
 				</div>
 			</div>
@@ -114,7 +119,7 @@
 	
 	<div class="panel panel-default" style="width:100%">
         <div class="panel-heading">
-			<h1><center>Regle Avancé</center></h1>
+			<h1><center>Règle Avancée</center></h1>
 		</div>
 		<!-- /.panel-heading -->
 		<div class="panel-body">
