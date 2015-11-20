@@ -282,7 +282,7 @@
 		return $response;
 	}
 	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `name`) VALUES ('".$groups["group_id"]."','".$groups["name"]."')");
+		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
 		$response = getJSONFromCodeError(200);
 		calculGroupScore($group_id);
 		return $response;

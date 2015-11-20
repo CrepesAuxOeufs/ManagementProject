@@ -137,10 +137,10 @@
 
     function getAllGroupOnly($data)
     {
-        $result = mysql_query( "SELECT * FROM `GROUP` WHERE `GROUP`.project_id = '". $data["project_id"] . "'");
+        $result = mysql_query( "SELECT id,name FROM `GROUP` WHERE project_id = '". $data["project_id"] . "'");
         $groupArray = array();
 		
-        while($row = mysql_fetch_row($result))
+        while($row = mysql_fetch_assoc($result))
         {
 			$group = array();
             $group["id"]  = $row["id"];
