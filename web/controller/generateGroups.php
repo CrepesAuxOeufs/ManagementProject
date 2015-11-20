@@ -40,9 +40,8 @@
 	$current = file_get_contents($file);
 	$current = json_encode($data,true);
 	file_put_contents($file, $current);
-	
 	// Generation + sauvegarde
-	$data = exec("py ./generator/basic_generator.py");
+	$data = exec("py ./generator/".$json["data"]["type"].".py");
 	// Reponse
 	
 	if($data == null || $data == "")

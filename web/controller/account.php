@@ -38,7 +38,6 @@
 								"data": {"group_name":"nouveau groupe"}
 							}';*/
 			
-refs/remotes/origin/master
 	//$json = json_decode($jsonString,true);
 	
 	
@@ -274,25 +273,21 @@ refs/remotes/origin/master
 		return $response;
 	}
 	function createGroup($data){
-		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"))["group_id_max"] +1;
+		$group  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"));
+		$group_id = $group["group_id_max"] +1;
 		mysql_query ("INSERT INTO `GROUP`(`id`,`project_id`,`name`) VALUES ('".$group_id."','1','".$data["group_name"]."')");
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
 	function addUserToGroup($data){
 		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
+		calculGroupScore($group_id);
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
 	function removeUserFromGroup($data){
 		$group_id = mysql_fetch_assoc(mysql_query("SELECT group_id FROM `USER_GROUP` WHERE user_id = '". $data["user_id"] ."'"));
 		mysql_query ("DELETE `USER_GROUP` WHERE user_id='" . $data["user_id"] . "'");
-		$response = getJSONFromCodeError(200);
-		calculGroupScore($group_id);
-		return $response;
-	}
-	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
 		$response = getJSONFromCodeError(200);
 		calculGroupScore($group_id);
 		return $response;
