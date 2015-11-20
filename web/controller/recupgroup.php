@@ -14,6 +14,9 @@
     if ($request == 'showGroups'){
         $dataResponse = getAllGroup($json["data"]);
     }
+    if ($request == 'showGroupsOnly'){
+        $dataResponse = getAllGroupOnly($json["data"]);
+    }
 
    if($dataResponse == null)
 		$response = getJSONFromCodeError(202);
@@ -129,6 +132,21 @@
 			$group["scoreSkill"] = round( ($group["scoreSkill"] / count($group["users"])) * 100 ) /100;
 		}
 		
+        return $groupArray;
+    }
+
+    function getAllGroupOnly($data)
+    {
+        $result = mysql_query( "SELECT * FROM `GROUP` WHERE `GROUP`.project_id = '". $data["project_id"] . "'");
+        $groupArray = array();
+		
+        while($row = mysql_fetch_row($result))
+        {
+			$group = array();
+            $group["id"]  = $row["id"];
+            $group["name"]  = $row["name"];
+			array_push($groupArray, $group);
+        }
         return $groupArray;
     }
 
