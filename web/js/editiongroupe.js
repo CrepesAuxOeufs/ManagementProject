@@ -207,7 +207,7 @@ function GenALLGroupV2(gobject){
 								
 	$.ajax(	{
 		type: "POST",
-		url: "../controller/recupgroup.php",
+		url: "../controller/recupGroup.php",
 		data: JSON.stringify(params_allGroups),
 		dataType: 'json',
 		success: function(msg){
