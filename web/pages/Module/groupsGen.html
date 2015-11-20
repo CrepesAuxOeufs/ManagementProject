@@ -1,4 +1,5 @@
 ﻿
+    <link href="../dist/css/bootstrap-slider.css" rel="stylesheet">
 	
     <div id="wrapper">
 		<div id="errorHeader" class="panel-heading"></div>
@@ -13,13 +14,22 @@
 					<option id="complexe">complexe</option>
 					<option id="solveur">solveur</option>
 				</select><br>
+				<div id="param_complex_box">
+					<center>
+						<p>
+							<input style="padding-left:20px;" id="complex_iteration" type="text" data-slider-ticks="[3000, 6000, 9000, 12000]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["3000","6000","9000","12000"]'/>
+						</p>
+					</center>
+				</div>
 				<div>
 				<label>Informations de génération :</label><br>
 					<div style="margin-left:30px;">
-						Nombre de personnes : <a id="nbUsers"></a><br>
-						Nombre de groupes : <a id="nbGroups"></a><br>
-						Répartition : <br>
-						<div id="groupes_draw" style="margin-left:60px;"><div>
+						<p>Nombre de personnes : <a id="nbUsers"></a></p>
+						<p>Nombre de groupes : <a id="nbGroups"></a></p>
+						<p>
+							Répartition :
+							<div id="groupes_draw" style="margin-left:60px;"><div>
+						</p>
 					</div>
 				</div>
 				<br>
@@ -27,6 +37,7 @@
             <button type="button" class="btn btn-primary btn-lg btn-block" id="groups_generate_sumbit">Lancer la génération</button>
 		</div>
     </div>
+	<script src="../js/bootstrap-slider.js"></script>
 	<script src="../js/spin.min.js"></script>
 	<script src="../js/groupsGen.js"></script>
 	

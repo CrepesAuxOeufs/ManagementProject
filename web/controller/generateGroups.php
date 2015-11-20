@@ -32,6 +32,7 @@
 	
 	$data = array(); 
 	$data["nbGroup"] = $nbGroup;
+	$data["nbIteration"] = $json["data"]["nbIteration"];
 	$data["users"] = $usersCaracterisitcs;
 	$response = getJSONFromCodeError(200);
 	$response["data"] = $data;

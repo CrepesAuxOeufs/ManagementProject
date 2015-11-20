@@ -1,4 +1,11 @@
-﻿document.getElementById("box_loading").style.display = 'none';
+﻿$("#complex_iteration").slider({
+    ticks: [3000, 6000, 9000, 12000],
+    ticks_labels: ['3000','6000','9000','12000'],
+    ticks_snap_bounds: 40
+});
+document.getElementById("param_complex_box").style.display = 'none';
+
+document.getElementById("box_loading").style.display = 'none';
 var opts = {
       lines: 12             // The number of lines to draw
     , length: 7             // The length of each line
@@ -62,6 +69,12 @@ $('#label_nb_groups').on('input', function() {
 
 
 
+$("#select_generate_type").change(function() {
+	if(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML == "complexe")
+		document.getElementById("param_complex_box").style.display = 'block';
+	else
+		document.getElementById("param_complex_box").style.display = 'none';
+});
 
 $("#groups_generate_sumbit").click(function() {
 	if(document.getElementById("label_nb_groups").value == ""){
@@ -72,15 +85,16 @@ $("#groups_generate_sumbit").click(function() {
 		errorHeaderAddMessage("Impossible de lancer la génération avec un nombre d'équipe supérieur aux nombre de personnes", "warning");
 		return;
 	}
-	
 
-	console.log(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML);
 	if(document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML != "solveur"){
 		document.getElementById("box_loading").style.display = 'block';
 		document.getElementById("box_param").style.display = 'none';
 		var params_allGroups = {
 									request: "generateGroups",
-									data: {nbGroup : document.getElementById("label_nb_groups").value, type : document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML}
+									data: {	nbGroup : document.getElementById("label_nb_groups").value, 
+											type : document.getElementById("select_generate_type").options[document.getElementById("select_generate_type").selectedIndex].innerHTML,
+											nbIteration : document.getElementById("complex_iteration").value,
+										}
 								};
 		
 		$.ajax(	{
