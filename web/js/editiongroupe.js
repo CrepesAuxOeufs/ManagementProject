@@ -147,18 +147,7 @@ function GenALLGroupV2(gobject){
 	
 	table.clear();
 	
-	
-	$("#user_groupe").empty()
-	
-	
-	
 	for (group in gobject){
-		
-		
-		
-	
-		
-		
 		var group_users = gobject[group].users;
 		
 		for (user in group_users){
@@ -215,14 +204,19 @@ function GenALLGroupV2(gobject){
 			console.log("showGroupsOnly");
 			console.log(msg.data);
 			
+			
+			$("#user_groupe").empty();
+			$("#sup_grp").empty();
+			
 			for (blop in msg.data) {
 				
 				grp_idName[msg.data[blop].name] = msg.data[blop].id;
 				
 				
-				var option = $('<option></option>').attr("value", msg.data[blop].name).text(msg.data[blop].name);
-				$("#user_groupe").append(option);
-				$("#sup_grp").append(option);
+				var option1 = $('<option></option>').attr("value", msg.data[blop].name).text(msg.data[blop].name);
+				var option2 = $('<option></option>').attr("value", msg.data[blop].name).text(msg.data[blop].name);
+				$("#user_groupe").append(option1);
+				$("#sup_grp").append(option2);
 			}
 			
 			
