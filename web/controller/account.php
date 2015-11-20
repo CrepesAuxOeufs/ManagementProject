@@ -257,10 +257,7 @@
 		$response["data"] = "{}";
 		return $response;
 	}
-	
-	function calculGroupScore($group_id){
-	
-	}
+
 	
 	function removeGroup($data){
 		mysql_query ("DELETE `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
@@ -304,5 +301,54 @@
 		$response = getJSONFromCodeError(200);
 		$response["data"] = $users;
 		return $response;
+	}
+	
+		
+	function calculGroupScore($group_id){
+		$result = mysql_query( "SELECT `USER`.id
+                            FROM `GROUP`, `USER`, `USER_GROUP` 
+                            WHERE `GROUP`.id = `USER_GROUP`.group_id 
+                            AND `USER`.id = `USER_GROUP`.user_id 
+                            AND `GROUP`.project_id = '". $data["project_id"] . "'
+							AND `GROUP`.id = '". $group_id . "'");
+							
+		$scoreGlobal = 0;
+		$belbinScore = 0;
+		$skillScore = 0;
+		$nbUsers = 0;
+		
+        while($row = mysql_fetch_row($result))
+        {
+            $userID = $row[0];
+			
+			//BELBIN
+			$resultBelbin = mysql_query( "SELECT USER.id,USER.admin, USER.name,USER.nickname,BELBIN.id as belbin_id, USER_BELBIN.value as belbin_value,BELBIN.name as belbin_name
+									FROM `USER`
+									INNER JOIN `USER_BELBIN` ON USER.id = USER_BELBIN.user_id
+									INNER JOIN `BELBIN` ON BELBIN.id  =  USER_BELBIN.belbin_id
+									WHERE USER.id = '". $userID . "'");
+
+			while($rowBelbin = mysql_fetch_assoc($resultBelbin))
+				$belbinScore += $rowBelbin["belbin_value"];
+				
+			//SKILLS
+			$resultSkill = mysql_query( "SELECT USER.id,USER.name,USER.nickname,SKILL.id as skill_id, USER_SKILL.value as skill_value, SKILL.name as skill_name
+										FROM `USER`
+										INNER JOIN `USER_SKILL` ON USER.id =USER_SKILL.user_id
+										INNER JOIN `SKILL` ON SKILL.id  =  USER_SKILL.skill_id
+										WHERE USER.id = '". $userID . "'");
+
+			while($rowSkill = mysql_fetch_assoc($resultSkill))
+				$skillScore += $rowSkill["skill_value"] * 4;
+			
+			$nbUsers++;
+        }
+		
+		$belbinScore = round( ($belbinScore / $nbUsers) * 100 ) /100;
+		$skillScore = round( ($skillScore/ $nbUsers) * 100 ) /100;
+		$scoreGlobal = round($belbinScore + $skillScore);
+		
+		mysql_query ("UPDATE GROUP SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
+		
 	}
 ?>
