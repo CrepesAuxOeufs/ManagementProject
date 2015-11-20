@@ -80,13 +80,14 @@
 					<p>
 						On crée autant de liste (groupe) qui est demandé.<br>
 						On récupére autant de personnes qu'il y a de groupe provenant d'une liste compétence, afin d'insérer chaque membre récupéré dans une liste groupe.<br>
+						À chaque insertion, on copie l'utilisateur dans une tableau "déjà placé", celui ci nous servira notamment à éviter les doublons dans un groupe et qu'un élève soit présent dans deux groupes différents. <br>
 						On répète l'opération sur l'ensemble des listes compétences et autant qu'il reste de personnes à placer.<br>
 					</p>
 					<img src="images/Etape3.png" style="max-height: 200px; max-width: 800px;">
 					<p>
-						Durant les opérations de placement des personnes, on vérifie que chaque personne déplacé peut être placé dans la liste groupe qui lui est définie tout en prenant en compte ses incompatibilités. <br>
-						Dans le cas où la personne ne peut être placé dans la liste groupe selectionnée, cette personne cède sa place à la personne suivante dans la liste compétence.<br>
-						Si nous avons une incompatibilité récurente pour l'ensemble des listes groupe, nous le plaçons temporairement dans le groupe actuellement sélectionné.
+						Durant les opérations de placement des personnes, on vérifie que chaque personne déplacée peut être placée dans la liste groupe qui lui est définie tout en prenant en compte ses incompatibilités. <br>
+						Dans le cas où la personne ne peut être placée dans la liste groupe selectionnée, cette personne cède sa place à la personne suivante dans la liste compétence.<br>
+						Si nous avons une incompatibilité récurrente pour l'ensemble des listes groupes, nous le plaçons temporairement dans le groupe actuellement sélectionné.
 					</p>
 					<img src="images/Etape3-2.png" style="max-height: 200px; max-width: 800px;">
 				</div>
