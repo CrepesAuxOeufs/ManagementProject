@@ -32,9 +32,13 @@
 								"request": "createGroup",
 								"data": {"group_name":"nouveau groupe"}
 							}';
-				
-	$json = json_decode($jsonString,true);
-	*/
+			*/	
+	/*$jsonString = '{
+								"request": "createGroup",
+								"data": {"group_name":"nouveau groupe"}
+							}';*/
+	//$json = json_decode($jsonString,true);
+	
 	
 	
 	$json = json_decode(file_get_contents("php://input"),true);
@@ -45,7 +49,7 @@
 	if($request ==  "getAllAccount"){
 		$response = getUserList($json["userId"],$json["raw"],false);
 	}
-	if($request ==  "getAllAccountReady"){
+	else if($request ==  "getAllAccountReady"){
 		$response = getUserList($json["userId"],$json["raw"],true);
 	}
 	else if($request ==  "save"){
@@ -60,7 +64,7 @@
 	else if ($request == "removeUserFromGroup"){
 		$response = removeUserFromGroup($json["data"]);
 	}
-	else if ($request == "addUserFromGroup"){
+	else if ($request == "addUserToGroup"){
 		$response = addUserToGroup($json["data"]);
 	}
 	else if ($request == "getUsersUngroup"){
@@ -72,6 +76,8 @@
 	else if ($request == "createGroup"){
 		$response = createGroup($json["data"]);
 	}
+	else
+		$response = getJSONFromCodeError(202);
 	
 	
 	
@@ -257,10 +263,7 @@
 		$response["data"] = "{}";
 		return $response;
 	}
-	
-	function calculGroupScore($group_id){
-	
-	}
+
 	
 	function removeGroup($data){
 		mysql_query ("DELETE `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
@@ -269,8 +272,8 @@
 		return $response;
 	}
 	function createGroup($data){
-		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1")) +1;
-		mysql_query ("INSERT INTO `GROUP`(`id`,`name`) VALUES ('".$group_id."','".$data["group_name"]."')");
+		$group_id  = mysql_fetch_assoc(mysql_query ("SELECT MAX( id ) AS group_id_max FROM `GROUP` WHERE 1"))["group_id_max"] +1;
+		mysql_query ("INSERT INTO `GROUP`(`id`,`project_id`,`name`) VALUES ('".$group_id."','1','".$data["group_name"]."')");
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}
@@ -282,13 +285,13 @@
 		return $response;
 	}
 	function addUserToGroup($data){
-		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `name`) VALUES ('".$groups["group_id"]."','".$groups["name"]."')");
+		mysql_query ("INSERT INTO `USER_GROUP`( `group_id`, `user_id`) VALUES ('".$data["group_id"]."','".$data["user_id"]."')");
 		$response = getJSONFromCodeError(200);
 		calculGroupScore($group_id);
 		return $response;
 	}
 	function getUsersUngroup($data){
-		$result = mysql_query("SELECT * FROM `USER`
+		$result = mysql_query("SELECT USER.id,USER.name,USER.nickname FROM `USER`
 								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id
 								WHERE USER_GROUP.user_id IS NULL
 								and USER.admin = 0 AND USER.profil = 1");
@@ -297,12 +300,61 @@
         {
 			$userInfo = array();
 			$userInfo["id"] = $row["id"];
-			$userInfo["name"] = $row["id"];
+			$userInfo["name"] = $row["name"];
 			$userInfo["nickname"] = $row["nickname"];
 			array_push($users,$userInfo);
 		}
 		$response = getJSONFromCodeError(200);
 		$response["data"] = $users;
 		return $response;
+	}
+	
+		
+	function calculGroupScore($group_id){
+		$result = mysql_query( "SELECT `USER`.id
+                            FROM `GROUP`, `USER`, `USER_GROUP` 
+                            WHERE `GROUP`.id = `USER_GROUP`.group_id 
+                            AND `USER`.id = `USER_GROUP`.user_id 
+                            AND `GROUP`.project_id = '". $data["project_id"] . "'
+							AND `GROUP`.id = '". $group_id . "'");
+							
+		$scoreGlobal = 0;
+		$belbinScore = 0;
+		$skillScore = 0;
+		$nbUsers = 0;
+		
+        while($row = mysql_fetch_row($result))
+        {
+            $userID = $row[0];
+			
+			//BELBIN
+			$resultBelbin = mysql_query( "SELECT USER.id,USER.admin, USER.name,USER.nickname,BELBIN.id as belbin_id, USER_BELBIN.value as belbin_value,BELBIN.name as belbin_name
+									FROM `USER`
+									INNER JOIN `USER_BELBIN` ON USER.id = USER_BELBIN.user_id
+									INNER JOIN `BELBIN` ON BELBIN.id  =  USER_BELBIN.belbin_id
+									WHERE USER.id = '". $userID . "'");
+
+			while($rowBelbin = mysql_fetch_assoc($resultBelbin))
+				$belbinScore += $rowBelbin["belbin_value"];
+				
+			//SKILLS
+			$resultSkill = mysql_query( "SELECT USER.id,USER.name,USER.nickname,SKILL.id as skill_id, USER_SKILL.value as skill_value, SKILL.name as skill_name
+										FROM `USER`
+										INNER JOIN `USER_SKILL` ON USER.id =USER_SKILL.user_id
+										INNER JOIN `SKILL` ON SKILL.id  =  USER_SKILL.skill_id
+										WHERE USER.id = '". $userID . "'");
+
+			while($rowSkill = mysql_fetch_assoc($resultSkill))
+				$skillScore += $rowSkill["skill_value"] * 4;
+			
+			$nbUsers++;
+        }
+		
+		$belbinScore = round( ($belbinScore / $nbUsers) * 100 ) /100;
+		$skillScore = round( ($skillScore/ $nbUsers) * 100 ) /100;
+		$scoreGlobal = round($belbinScore + $skillScore);
+		
+		mysql_query ("UPDATE GROUP SET scrore='" . $scoreGlobal . "' WHERE id='" . $group_id . "'");
+		
 	}
 ?>

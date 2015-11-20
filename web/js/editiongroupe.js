@@ -71,6 +71,7 @@ function getGroups(){
 		}
 	});
 	
+	
 }
 
 
@@ -149,22 +150,21 @@ function GenALLGroupV2(gobject){
 	
 	$("#user_groupe").empty()
 	
-	grp_idName = [];
+	
 	
 	for (group in gobject){
 		
 		
 		
 	
-		var option = $('<option></option>').attr("value", gobject[group].name).text(gobject[group].name);
-		$("#user_groupe").append(option);
+		
 		
 		var group_users = gobject[group].users;
 		
 		for (user in group_users){
 			
 		
-			grp_idName[gobject[group].name] = gobject[group].id;
+			
 			
 			table.row.add([
 				group_users[user]["id"],
@@ -180,6 +180,75 @@ function GenALLGroupV2(gobject){
 	}
 	table.draw();
 	
+	
+	
+	var params_allGroups = {
+							request: "getUsersUngroup",
+							data:{}
+						};
+								
+	$.ajax(	{
+		type: "POST",
+		url: "../controller/account.php",
+		data: JSON.stringify(params_allGroups),
+		dataType: 'json',
+		success: function(msg){
+			console.log(msg);
+			addUngrp(msg.data);
+			
+		}
+	});
+	
+	
+	var params_allGroups = {
+							request: "showGroupsOnly",
+							data:{project_id:1}
+						};
+								
+	$.ajax(	{
+		type: "POST",
+		url: "../controller/recupgroup.php",
+		data: JSON.stringify(params_allGroups),
+		dataType: 'json',
+		success: function(msg){
+			
+			console.log("showGroupsOnly");
+			console.log(msg.data);
+			
+			for (blop in msg.data) {
+				
+				grp_idName[msg.data[blop].name] = msg.data[blop].id;
+				
+				
+				var option = $('<option></option>').attr("value", msg.data[blop].name).text(msg.data[blop].name);
+				$("#user_groupe").append(option);
+			}
+			
+			
+			
+		}
+	});
+	
+	
+	
+	
+	
+}
+
+
+function addUngrp(gobject){
+	var table = $('#dataTables-example').DataTable();
+	
+	for (group in gobject){
+		table.row.add([
+				gobject[group]["id"],
+				"0",
+				"aucun",
+				gobject[group]["name"],
+				gobject[group]["nickname"]
+				]);
+	}
+	table.draw();
 	
 }
 
