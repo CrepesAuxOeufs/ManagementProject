@@ -288,7 +288,7 @@
 		return $response;
 	}
 	function getUsersUngroup($data){
-		$result = mysql_query("SELECT * FROM `USER`
+		$result = mysql_query("SELECT `USER`.id,`USER`.name,`USER`.nickname FROM `USER`
 								LEFT JOIN USER_GROUP ON USER.id = USER_GROUP.user_id
 								WHERE USER_GROUP.user_id IS NULL
 								and USER.admin = 0 AND USER.profil = 1");
@@ -297,7 +297,7 @@
         {
 			$userInfo = array();
 			$userInfo["id"] = $row["id"];
-			$userInfo["name"] = $row["id"];
+			$userInfo["name"] = $row["name"];
 			$userInfo["nickname"] = $row["nickname"];
 			array_push($users,$userInfo);
 		}
