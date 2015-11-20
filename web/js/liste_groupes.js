@@ -36,14 +36,22 @@ function GenALLGroupV2(gobject){
 		
 		
 		
+		
+		
+		
+		
+		
 		var grpbuilder = '<div class="col-lg-12 col-md-12" style="padding-top:5px;"> \
-							<div class="panel panel-primary">\
+							<div class="panel panel-default">\
 								<div class="panel-heading">\
+								 <h4>'+gobject[group].name+'</h4>\
+								</div>\
+								<div class="panel-body">\
 									<div class="row">';
 										
 										
 								
-		
+		gobject[group].name
 		
 		
 		
@@ -64,7 +72,7 @@ function GenALLGroupV2(gobject){
 								</div>\
 								<a href="#">\
 									<div class="panel-footer">\
-										<span class="pull-left">Score : '+gobject[group].scoreGlobal+', belbin '+gobject[group].scoreBelbin+', Skill '+gobject[group].scoreSkill+'. En savoir plus</span>\
+										<span class="pull-left">Score : '+gobject[group].scoreGlobal+', belbin '+gobject[group].scoreBelbin+', Skill '+gobject[group].scoreSkill+'. </span>\
 										<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>\
 										<div class="clearfix"></div>\
 									</div>\
