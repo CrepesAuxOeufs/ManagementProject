@@ -314,7 +314,7 @@ function logingHeaderAddMessage(msg,type){
 	$("#MsgHeader").append('<div class="alert alert-'+type+' alert-dismissable" id="' + uuid+ '" style="margin:5px 5px 5px 5px;"> \
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
 	'+msg+'. </div>');
-	setTimeout(function()	{document.getElementById(uuid).remove();},50000);
+	setTimeout(function()	{document.getElementById(uuid).remove();},5000);
 }
 
 
