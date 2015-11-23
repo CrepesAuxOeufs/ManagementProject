@@ -73,7 +73,6 @@
 		$response = getUsersUngroup($json["data"]);
 	}
 	else if ($request == "removeGroup"){
-		echo "requete recu";
 		$response = removeGroup($json["data"]);
 	}
 	else if ($request == "createGroup"){
@@ -268,12 +267,8 @@
 
 	
 	function removeGroup($data){
-		echo "gne";
-		echo $data["group_id"];
 		mysql_query ("DELETE FROM `USER_GROUP` WHERE group_id='" . $data["group_id"] . "'");
-		echo "gne";
 		mysql_query ("DELETE FROM `GROUP` WHERE id='" . $data["group_id"] . "'");
-		echo "gne";
 		$response = getJSONFromCodeError(200);
 		return $response;
 	}

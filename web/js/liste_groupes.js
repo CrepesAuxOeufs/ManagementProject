@@ -19,10 +19,15 @@ function getGroups(){
 		dataType: 'json',
 		success: function(msg){
 			console.log(msg);
+			if(msg.code == 202){
+				var texte = "<p>Aucun groupe à afficher.</p>"
+				$("#grpcontainer").append(texte);
+			}
 			
 			
 			GenALLGroupV2(msg.data);
 		}
+		
 	});
 	
 }
