@@ -1,4 +1,4 @@
-﻿
+
 	
 	<div class="panel panel-default" style="width:100%;background: #000 url('images/fond2.jpeg') no-repeat right top;background-size: 100% 100%;">
         <div style="margin-top: 4%; margin-bottom: 4%;">
@@ -45,7 +45,7 @@
 		<div class="panel-body">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" id="tab_nav_regle">
-				<li class="active"><a href="#basic_1" data-toggle="tab">Récupérations</a>
+				<li class="active"><a href="#basic_1" data-toggle="tab">Initialisation</a>
 				</li>
 				<li><a href="#basic_2" data-toggle="tab">Listes</a>
 				</li>
@@ -63,7 +63,9 @@
 					<h4>Étape 1: </h4>
 					<p>
 						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations Belbin ainsi que leurs incompatibilités s’il y en a.
-						<img src="images/Etape1.png" style="max-height: 200px; max-width: 800px;">
+					</p>
+					<p>
+						Ensuite, en fonction du nombre d'étudiants et du nombre de groupes désirés, nous calculons le nombre de personnes par groupe..
 					</p>
 				</div>
 				<div class="tab-pane fade" id="basic_2" >
@@ -126,33 +128,110 @@
 		<div class="panel-body">
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" id="tab_nav_regle_advance">
-				<li class="active"><a href="#advanced_1" data-toggle="tab">Home</a>
+				<li class="active"><a href="#advanced_1" data-toggle="tab">Initialisation</a>
 				</li>
-				<li><a href="#advanced_2" data-toggle="tab">Profile</a>
+				<li><a href="#advanced_2" data-toggle="tab">Incompatibilités</a>
 				</li>
-				<li><a href="#advanced_3" data-toggle="tab">Messages</a>
+				<li><a href="#advanced_3" data-toggle="tab">Optimisation</a>
 				</li>
-				<li><a href="#advanced_4" data-toggle="tab">Settings</a>
+				<li><a href="#advanced_4" data-toggle="tab">Scoring</a>
 				</li>
 			</ul>
 
 			<!-- Tab panes -->
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="advanced_1">
-					<h4>Etape 1: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Étape 1: </h4>
+					<p>
+						On récupère tous les élèves enregistrés avec leurs compétences, leurs évaluations Belbin ainsi que leurs incompatibilités s’il y en a.
+					</p>
+					<p>
+						Ensuite, en fonction du nombre d'étudiants et du nombre de groupes désirés, nous calculons le nombre de personnes par groupe.
+					</p>
+					<p>
+						Pour terminer, nous plaçons aléatoirement, les étudiants dans des groupes sans gérer les incompatibilités.
+					</p>
 				</div>
 				<div class="tab-pane fade" id="advanced_2">
-					<h4>Etape 2: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Etape 2: </h4>
+					<p>
+						Nous identifions tous les étudiants incompatibles que nous avons précédemment placés dans les groupes afin de rectifier toutes les incompatibilités.
+					</p>
+					<p>
+						Avec ces étudiants incompatibles, nous échangeons deux étudiants au hasard.
+						Dans le cas où il y a qu'une personne ou que le nombre d'étudiants identifiés ne change pas après plusieurs échanges, nous prenons un autre étudiant au hasard. Cet étudiant ne doit pas avoir d'incompatibilités avec le groupe dans lequel il se trouve ainsi qu'avec le groupe dans lequel il pourrait se retrouver.
+					</p>
+					<p>
+						Nous recommençons le procédé d'échange d'étudiants incompatibles jusqu'à ce qu'il n'y ait plus d'incompatibilité. Mais
+						si le programme ne trouve pas de solution, ce dernier se termine et ne renvoie aucune équipe.
+					</p>
 				</div>
 				<div class="tab-pane fade" id="advanced_3">
-					<h4>Etape 3: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Etape 3: </h4>
+					<p>
+						Dans cette étape, nous essayons d'optimiser et d'homogénéiser les groupes aléatoirement, tout en vérifiant les incompatibilités au fur et à mesure.
+					</p>
+					<p>
+						Nous échangeons deux étudiants au hasard, provenant de deux groupes distincts, tout en vérifiant que ces deux élèves échangés ne provoqueront pas d'incompatibilité.<br>
+					</p>
+					<p>
+						Nous calculons le score avant et aprés changement de la façon suivante:<br>
+						<ul>
+							<center><img src="images/formule_comple_0.png" style="max-height: 150px; max-width: 400px;"></center><br>
+							Avec:
+							<li>
+								i = une équipe
+							</li>
+							<li>
+								j = un domaine ou une compétence
+							</li>
+							<li>
+								&Delta;(j,i) = | moyenne générale du domaine(j) - moyenne du domaine de l'équipe (j,i) |
+							</li>
+						</ul>
+					</p>
+					<p>
+						Nous gardons la configuration d'équipes (avant ou aprés changement) ayant le plus petit score.
+					</p>
+					<p>
+					    Afin d'optimiser le plus possible, l'utilisateur choisira le nombre d'itérations que fera cette étape.Plus le nombre d'itérations est élevé, meilleur sera la solution mais le temps de calcul sera plus long.
+					</p>
+					<p>
+						<center>10.000 &le; nombre d'itérations &le; 70.000</center>
+					</p>
 				</div>
 				<div class="tab-pane fade" id="advanced_4">
-					<h4>Etape 4: gne</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h4>Etape 4: </h4>
+					<p>
+						<center><img src="images/formule_comple_0.png" style="max-height: 150px; max-width: 400px;"></center><br>
+						Avec:
+						<li>
+							j = un domaine ou une compétence
+						</li>
+						<li>
+							r(j) = Moyenne equipe du domaine j / ecart type du domaine j
+						</li>
+						<li>
+							min( r(j) ) = un domaine ou une compétence
+						</li>
+						<li>
+							max( r(j) ) = un domaine ou une compétence
+						</li>
+						<li>
+							&rho; : Pondération du domaine dans l'équipe, 2 cas:
+							<li>
+								r(j) < 1: <br>
+									&rho; = (( 1 - r(j) * coefMax) / min( r(j) )
+							</li>
+							<li>
+								r(j) > 1: <br>
+									&rho; = ((r(j) - 1) * coefMax) / max( r(j) )
+							</li>
+						</li>
+					</p>
+					<p>
+						Dans le programme de calcul nous cherchons à miniser la différence entre le score minimal et le score maximale.
+					</p>
 				</div>
 			</div>
 		</div>
