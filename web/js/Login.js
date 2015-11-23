@@ -63,7 +63,7 @@ function logingHeaderAddMessage(msg,type){
 	$("#loginHeader").append('<div class="alert alert-'+type+' alert-dismissable" id="' + uuid+ '" style="margin:5px 5px 0px 5px;"> \
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
 	'+msg+'. </div>');
-	setInterval(function()	{document.getElementById(uuid).remove();},5000);
+	setTimeout(function()	{document.getElementById(uuid).remove();},5000);
 }
 
 function generateUUID(){

@@ -111,6 +111,9 @@ function Create_group(){
 		data: JSON.stringify(params_allGroups),
 		dataType: 'json',
 		success: function(msg){
+			logingHeaderAddMessage("Nouveau groupe "+$("#grp_name").val()+" créer","success");
+			$("#grp_name").val(""); 
+			
 			console.log(msg);
 			update_grp();
 		}
@@ -132,6 +135,8 @@ function add_userToGroup(){
 		data: JSON.stringify(params_allGroups),
 		dataType: 'json',
 		success: function(msg){
+			logingHeaderAddMessage("L'utilisateur "+$("#user_nickname").val()+ " " +$("#user_name").val() + " a été ajouté avec succès au groupe " +$("#user_groupe").val()  ,"success");
+			
 			console.log(msg);
 			update_grp();
 		}
@@ -289,15 +294,28 @@ function Supp_group(){
 			success: function(msg){
 				console.log(msg);
 				console.log(grp_idName[$("#sup_grp").val()]);
+				logingHeaderAddMessage("Groupe "+$("#sup_grp").val()+" supprimé","success");
 				
+				update_grp();
 				
-				
-				
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				logingHeaderAddMessage("Error","warning");
+				//alert(xhr.status);
+				//alert(thrownError);
 			}
 	});
 	
 }
 
+function logingHeaderAddMessage(msg,type){
+	var uuid = generateUUID();
+	console.log(uuid);
+	$("#MsgHeader").append('<div class="alert alert-'+type+' alert-dismissable" id="' + uuid+ '" style="margin:5px 5px 5px 5px;"> \
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>\
+	'+msg+'. </div>');
+	setTimeout(function()	{document.getElementById(uuid).remove();},50000);
+}
 
 
 
