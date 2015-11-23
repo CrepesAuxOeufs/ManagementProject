@@ -19,7 +19,7 @@
 
 	mysql_query("UPDATE  `USER` SET  `id` ='0' WHERE name =  'Denet' AND nickname =  'Laurent'");	
 
-	$nbEleve = 100;
+	$nbEleve = 10;
 	$nbGroup = 5;
 
 	$nbGroupSup = ($nbEleve % $nbGroup);
